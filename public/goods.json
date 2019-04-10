@@ -1,0 +1,119 @@
+[
+  {
+    "product": {
+      "id": 10,
+      "name": "IPhone 5",
+      "description": "Good IPhone 5",
+      "price": 100,
+      "discount": 0,
+      "weight": 1,
+      "stock": 100,
+      "stock_unlimited": true,
+      "sku": "string",
+      "featured": false,
+      "status": "available",
+      "created_at": "12 november 2018",
+      "package_format": "box",
+      "length": 0,
+      "width": 220,
+      "height": 100,
+      "diameter": 20,
+      "amount": 1,
+      "permalink": "string",
+      "categories": [
+        {
+          "id": 0,
+          "name": "phone",
+          "parent_id": 0,
+          "permalink": "string"
+        }
+      ],
+      "images": [
+        {
+          "id": 0,
+          "position": 0,
+          "url": "https://hotline.ua/img/tx/158/158142062_s265.jpg"
+        }
+      ]
+
+    }
+  },
+  {
+    "product": {
+      "id": 11,
+      "name": "IPhone 7",
+      "description": "Good IPhone 7",
+      "price": 1000,
+      "discount": 8,
+      "weight": 80,
+      "stock": 100,
+      "stock_unlimited": true,
+      "sku": "string",
+      "featured": false,
+      "status": "available",
+      "created_at": "12 october 2018",
+      "package_format": "box",
+      "length": 120,
+      "width": 320,
+      "height": 100,
+      "diameter": 15,
+      "amount": 1,
+      "permalink": "string",
+      "categories": [
+        {
+          "id": 0,
+          "name": "phone",
+          "parent_id": 0,
+          "permalink": "string"
+        }
+      ],
+      "images": [
+        {
+          "id": 0,
+          "position": 0,
+          "url": "https://static.toiimg.com/photo/54946764/Apple-iPhone-7.jpg"
+        }
+      ]
+
+    }
+  },
+  {
+    "product": {
+      "id": 12,
+      "name": "IPhone 9",
+      "description": "Good IPhone 9",
+      "price": 100,
+      "discount": 0,
+      "weight": 1,
+      "stock": 100,
+      "stock_unlimited": true,
+      "sku": "string",
+      "featured": false,
+      "status": "available",
+      "created_at": "12 november 2018",
+      "package_format": "box",
+      "length": 0,
+      "width": 220,
+      "height": 100,
+      "diameter": 20,
+      "amount": 1,
+      "permalink": "string",
+      "categories": [
+        {
+          "id": 0,
+          "name": "phone",
+          "parent_id": 0,
+          "permalink": "string"
+        }
+      ],
+      "images": [
+        {
+          "id": 0,
+          "position": 0,
+          "url": "https://d2wsh2n0xua73e.cloudfront.net/wp-content/uploads/2017/09/Apple-iPhone-X-Buyers.png"
+        }
+      ]
+
+    }
+  }
+]
