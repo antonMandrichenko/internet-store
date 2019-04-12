@@ -81,10 +81,9 @@ function SliderGoodsImg({classes}) {
             activeIndexImg={activeIndex}
             changeImgHandle={changeImgHandle}
           />
-          )
-        }
+      )}
       </Grid>
-      <Grid item md={10} >
+      <Grid item md={10}>
         <div >
           <div className={`swiper-container ${classes.swiper2}`} id="swiper2">
             <div className="swiper-wrapper" >

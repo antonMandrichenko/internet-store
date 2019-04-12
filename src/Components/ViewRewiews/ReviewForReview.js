@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
-import Grid from "@material-ui/core/Grid";
-import Typography from "@material-ui/core/Typography";
-import Divider from "@material-ui/core/Divider";
+import { withStyles } from '@material-ui/core/styles/index';
+import Grid from "@material-ui/core/Grid/index";
+import Typography from "@material-ui/core/Typography/index";
+import Divider from "@material-ui/core/Divider/index";
 
 ReviewForReview.propTypes = {
   classes: PropTypes.object.isRequired,

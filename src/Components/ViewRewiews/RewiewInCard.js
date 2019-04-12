@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
-import Paper from "@material-ui/core/Paper";
-import Grid from "@material-ui/core/Grid";
-import Typography from "@material-ui/core/Typography";
-import StarRates from "../../StarsRate";
-import Button from "@material-ui/core/Button";
+import { withStyles } from '@material-ui/core/styles/index';
+import Paper from "@material-ui/core/Paper/index";
+import Grid from "@material-ui/core/Grid/index";
+import Typography from "@material-ui/core/Typography/index";
+import StarRates from "../StarsRate";
+import Button from "@material-ui/core/Button/index";
 import ReplayIcon from '@material-ui/icons/Replay';
 import ReviewForReview from "./ReviewForReview";
 

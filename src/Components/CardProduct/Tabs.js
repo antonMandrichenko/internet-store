@@ -7,7 +7,7 @@ import Tab from '@material-ui/core/Tab';
 import AboutProduct from "./AboutProduct";
 import Card from "@material-ui/core/Card";
 import Specification from "./Specification";
-import ViewRewiews from "./ViewRewiews";
+import ViewRewiews from "../ViewRewiews";
 
 function TabContainer(props) {
   return (

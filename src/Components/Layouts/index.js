@@ -1,4 +1,5 @@
 import React, {Fragment} from 'react';
+import { withStyles } from '@material-ui/core/styles';
 import Header from '../Header/Header';
 import Grid from "@material-ui/core/Grid";
 import Aside from "../Aside";
@@ -8,12 +9,28 @@ import Divider from "@material-ui/core/Divider";
 import PersonalData from "../PersonalData";
 import Pagination from "../Pagination";
 import CardProduct from "../CardProduct";
+import SignIn from "../SignIn";
+import Registered from "../Registered";
 
-function Layouts(props) {
+const styles = theme => ({
+  grid: {
+    width: '70%',
+    margin: '0 auto',
+    paddingBottom: '.5rem',
+    [theme.breakpoints.down('md')]: {
+      width: '100%',
+      padding: '0 .5rem',
+      paddingBottom: '.5rem'
+    },
+  },
+
+});
+
+function Layouts({classes}) {
   return (
     <Fragment>
       <Header/>
-      <Grid container style={{width: '70%', margin: '0 auto'}}>
+      <Grid container className={classes.grid}>
         <Grid item md={2}>
           <Aside/>
           <Divider variant="middle" />
@@ -47,6 +64,7 @@ function Layouts(props) {
         </Grid>
 
         <CardProduct/>
+        <Registered/>
 
       </Grid>
 
@@ -55,4 +73,4 @@ function Layouts(props) {
   );
 }
 
-export default Layouts;
+export default withStyles(styles)(Layouts);

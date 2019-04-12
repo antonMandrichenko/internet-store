@@ -9,6 +9,10 @@ import MenuIcon from '@material-ui/icons/Menu';
 import Grid from '@material-ui/core/Grid';
 import Menu from './Menu';
 import Avatar from "@material-ui/core/Avatar";
+import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
+import ShopCart from "../ShopCart";
+import Login from "./Login";
+import Logout from "./Logout";
 
 
 const styles = theme => ({
@@ -38,11 +42,20 @@ const styles = theme => ({
 
 function Header({classes}) {
 
-  const [pos, usePos] = useState(null);
+  const [pos, setPos] = useState(null);
+  const [isOpenCart, setIsOpenCart] = useState(false);
 
   const handleClick = () => {
     console.log('ghghghgh')
   };
+
+  const handleOpenCart = () => {
+    setIsOpenCart(!isOpenCart);
+  };
+
+  // const handleClose = () => {
+  //   setIsOpenCart(false);
+  // };
 
   return (
     <div className={classes.root}>
@@ -64,12 +77,15 @@ function Header({classes}) {
               <Menu/>
             </Grid>
             <Grid item xs={2} className={classes.menuButton}>
-              <Button color="inherit" onClick={handleClick}>Login</Button>
+              <Button color="inherit" onClick={handleOpenCart}>Cart<AddShoppingCartIcon/></Button>
+              <Login handleClick={handleClick}/>
+              <Logout handleClick={handleClick}/>
               <Avatar alt="Remy Sharp" src="./img/avatar.jpg" className={classes.avatar} />
             </Grid>
           </Grid>
         </Toolbar>
       </AppBar>
+      <ShopCart isOpenCart={isOpenCart} handleOpenCart={handleOpenCart}/>
     </div>
 
   );

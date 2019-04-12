@@ -12,7 +12,8 @@ const styles = theme => ({
     alignItems: 'flex-start'
   },
   image: {
-    width: '90%',
+    // width: '80%'
+    // height: '80%',
     height: heightImg,
 
 
