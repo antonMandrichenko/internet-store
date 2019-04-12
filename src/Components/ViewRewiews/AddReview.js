@@ -13,6 +13,8 @@ import Dialog from "@material-ui/core/Dialog/index";
 // import mapStateToProps from "react-redux/es/connect/mapStateToProps";
 // import mapDispatchToProps from "react-redux/es/connect/mapDispatchToProps";
 import { createReview } from '../../store/actions/reviewActions';
+import Drawer from "@material-ui/core/Drawer";
+
 
 
 AddReview.propTypes = {
@@ -86,11 +88,6 @@ function AddReview({classes, isOpenDialog, handleOpenDialog, createReview}) {
     console.log('submit form')
     createReview(reviewCreate);
     setReviewCreate(initState);
-    // console.log(event.target.positive.value);
-    // console.log(event.target.negative.value);
-    // console.log(event.target.description.value);
-    // console.log(event.target.username.value);
-    // console.log(event.target.email.value);
   };
 
   return (
@@ -98,70 +95,69 @@ function AddReview({classes, isOpenDialog, handleOpenDialog, createReview}) {
       open={isOpenDialog}
       onClose={handleOpenDialog}
     >
-    <Grid
-      container justify="center"
-      className={classes.dialog}>
-      <Grid item md={11}>
-        <Paper>
-          <Typography variant="h5" component="h5" align="center">
-            Add review
-          </Typography>
-          <Grid container justify="center">
-            <StarRates fontSize={"large"}
-                       onOver={onOver}
-                       onLeave={onLeave}
-                       handleSelectStar={handleSelectStar}
-                       rate={rate}
-            />
-          </Grid>
-          <form  className={classes.container} onSubmit={handleSubmit}>
-            <TextField
-              label="Positive"
-              name="positive"
-              id="positive"
-              className={classes.textField}
-              onChange={handleChange}
-              fullWidth
-              type="text"
-            />
-            <TextField
-              label="Negative"
-              name="negative"
-              id="negative"
-              className={classes.textField}
-              onChange={handleChange}
-              fullWidth
-              type="text"
-            />
-            <TextField
-              label="Description"
-              name="description"
-              id="description"
-              multiline
-              rows="4"
-              className={classes.textField}
-              onChange={handleChange}
-              fullWidth
-            />
-            <TextField
-              id="email"
-              label="Email"
-              className={classes.textField}
-              type="email"
-              name="email"
-              autoComplete="email"
-              onChange={handleChange}
-              fullWidth
-            />
-            <TextField
-              label="Your name"
-              name="username"
-              id="username"
-              className={classes.textField}
-              onChange={handleChange}
-              fullWidth
-            />
-
+      <Grid
+        container justify="center"
+        className={classes.dialog}>
+        <Grid item md={11}>
+          <Paper>
+            <Typography variant="h5" component="h5" align="center">
+              Add review
+            </Typography>
+            <Grid container justify="center">
+              <StarRates fontSize={"large"}
+                         onOver={onOver}
+                         onLeave={onLeave}
+                         handleSelectStar={handleSelectStar}
+                         rate={rate}
+              />
+            </Grid>
+            <form className={classes.container} onSubmit={handleSubmit}>
+              <TextField
+                label="Positive"
+                name="positive"
+                id="positive"
+                className={classes.textField}
+                onChange={handleChange}
+                fullWidth
+                type="text"
+              />
+              <TextField
+                label="Negative"
+                name="negative"
+                id="negative"
+                className={classes.textField}
+                onChange={handleChange}
+                fullWidth
+                type="text"
+              />
+              <TextField
+                label="Description"
+                name="description"
+                id="description"
+                multiline
+                rows="4"
+                className={classes.textField}
+                onChange={handleChange}
+                fullWidth
+              />
+              <TextField
+                label="Your name"
+                name="username"
+                id="username"
+                className={classes.textField}
+                onChange={handleChange}
+                fullWidth
+              />
+              <TextField
+                id="email"
+                label="Email"
+                className={classes.textField}
+                type="email"
+                name="email"
+                autoComplete="email"
+                onChange={handleChange}
+                fullWidth
+              />
               <Button
                 variant="contained"
                 color="primary"
@@ -171,14 +167,11 @@ function AddReview({classes, isOpenDialog, handleOpenDialog, createReview}) {
                 onClick={handleOpenDialog}>
                 Send review
               </Button>
-            {/*</Grid>*/}
-          </form>
-
-        </Paper>
+            </form>
+          </Paper>
+        </Grid>
       </Grid>
-    </Grid>
     </Dialog>
-
   );
 }
 

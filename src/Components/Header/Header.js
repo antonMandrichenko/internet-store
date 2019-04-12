@@ -1,5 +1,7 @@
 import React, {useState} from 'react';
-import withStyles from "@material-ui/core/styles/withStyles";
+import { connect } from 'react-redux';
+import { compose } from 'redux';
+import { withStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
@@ -91,4 +93,13 @@ function Header({classes}) {
   );
 }
 
-export default withStyles(styles)(Header);
+const mapStateToProps = state => {
+  return {
+
+  }
+};
+
+export default compose(
+  withStyles(styles),
+  connect(mapStateToProps)
+)(Header);

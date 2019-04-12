@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles/index';
+import moment from 'moment';
 import Paper from "@material-ui/core/Paper/index";
 import Grid from "@material-ui/core/Grid/index";
 import Typography from "@material-ui/core/Typography/index";
@@ -32,7 +33,7 @@ function RewiewInCard({classes, review}) {
       <Grid container>
         <Grid item md={2}>
           <Typography variant="h6" component="h6">
-            {review.user}
+            {review.username || 'Anonim'}
           </Typography>
         </Grid>
         <Grid item md={2}>
@@ -40,19 +41,25 @@ function RewiewInCard({classes, review}) {
         </Grid>
         <Grid item md={8} className={classes.dateGrid}>
           <Typography variant="body2" component="p">
-            {review.date}
+            {moment(review.date).format('DD.MM.YYYY')}
           </Typography>
         </Grid>
       </Grid>
-      <Typography component="p">
-        {review.text}
+      <Typography variant="body1" component="p">
+        {review.description}
       </Typography>
-      <Typography component="p">
-        <strong>Positive: </strong> {review.positive}
-      </Typography>
-      <Typography component="p">
-        <strong>Negative: </strong> {review.negative}
-      </Typography>
+      {review.positive
+        ? <Typography component="p">
+          <strong>Positive: </strong> {review.positive}
+        </Typography>
+        : null
+      }
+      {review.negative
+        ? <Typography component="p">
+          <strong>Negative: </strong> {review.negative}
+        </Typography>
+        : null
+      }
       <Button color="primary" size="medium">
         <ReplayIcon/>
         Replay

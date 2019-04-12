@@ -1,6 +1,7 @@
 export const createReview = (review) => (dispatch, getState, { getFirebase, getFirestore }) => {
-  const firestore = getFirestore();
-  firestore.collection('reviews').add({
+  // console.log('arguments', getFirestore);
+  // const firestore = getFirestore();
+  getFirestore().collection('reviews').add({
     ...review,
     createdAt: new Date()
   }).then(() => {
