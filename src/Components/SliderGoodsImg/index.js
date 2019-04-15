@@ -3,7 +3,6 @@ import { withStyles } from '@material-ui/core/styles';
 import Swiper from 'swiper/dist/js/swiper.esm.bundle';
 import Grid from "@material-ui/core/Grid";
 import SmallImg from "./SmallImg";
-// import './swiper.css'
 
 const styles = theme => ({
   swiper2: {
@@ -11,7 +10,15 @@ const styles = theme => ({
     height: 500,
     display: 'flex',
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
+    [theme.breakpoints.down('md')]: {
+      width: 'inherit',
+      height: 400,
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+
     // border: '1px solid black',
   },
   swiper2Slide: {
@@ -25,10 +32,27 @@ const styles = theme => ({
   imageMain: {
     width: '100%',
   },
-  // slideAside: {
-  //
-  //   border: '1px solid black',
-  // }
+  smallImg: {
+    [theme.breakpoints.down('md')]: {
+      order: 2,
+      display: 'flex',
+      justifyContent: 'space-between',
+      alignItems: 'center'
+    },
+  },
+  bigImg: {
+    [theme.breakpoints.down('md')]: {
+      order: 1,
+    },
+  },
+  root: {
+    [theme.breakpoints.down('md')]: {
+      paddingRight: '.4rem',
+    },
+    [theme.breakpoints.down('sm')]: {
+      paddingRight: 0,
+    },
+  }
 });
 
 function SliderGoodsImg({classes}) {
@@ -61,7 +85,7 @@ function SliderGoodsImg({classes}) {
     setSwipe(myswiper);
   }, []);
 
-  const changeImgHandle = (index) => {
+  const changeImgHandle = () => {
     // setActiveIndex(index);
   };
 
@@ -71,8 +95,8 @@ function SliderGoodsImg({classes}) {
   };
 
   return (
-    <Grid container>
-      <Grid item md={2}>
+    <Grid container className={classes.root}>
+      <Grid item lg={2} xs={12} md={12} className={classes.smallImg}>
       {slides.map((img, ind) =>
           <SmallImg
             key={img}
@@ -83,7 +107,7 @@ function SliderGoodsImg({classes}) {
           />
       )}
       </Grid>
-      <Grid item md={10}>
+      <Grid item lg={10} xs={12} md={12} className={classes.bigImg}>
         <div >
           <div className={`swiper-container ${classes.swiper2}`} id="swiper2">
             <div className="swiper-wrapper" >

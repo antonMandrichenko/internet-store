@@ -1,6 +1,6 @@
 import React, {Fragment, useState} from 'react';
 import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles/index';
+import { withStyles } from '@material-ui/core/styles';
 import { withFirestore, firestoreConnect } from 'react-redux-firebase';
 import { compose } from 'redux';
 import Typography from "@material-ui/core/Typography/index";
@@ -11,28 +11,18 @@ import Button from "@material-ui/core/Button/index";
 import { connect } from "react-redux";
 
 ViewRewiews.propTypes = {
-  // classes: PropTypes.object.isRequired,
+  classes: PropTypes.object.isRequired,
 };
 
-// const rewiews = [
-//   {
-//     id: 1, user: 'Alibaba', text: 'Lorem lorem lorel lorem Lorem lorem lorel loremLorem lorem lorel loremLorem lorem' +
-// ' lorel' +
-//       ' lorem Lorem lorem lorel lorem', rate: 2, positive: 'cool product', negative: 'no negative', date: '22.12.2018'
-//   },
-//   {
-//     id: 2, user: 'Lolay', text: 'Lorem lorem lorel lorem Lorem lorem lorel loremLorem lorem lorel loremLorem lorem' +
-//       ' lorel' +
-//       ' lorem Lorem lorem lorel lorem 2', rate: 3, positive: 'cool product 2', negative: 'no negative 2',  date: '22.12.2018'
-//   },
-//   {
-//     id: 3, user: 'Kattt', text: 'Lorem lorem lorel lorem Lorem lorem lorel loremLorem lorem lorel loremLorem lorem' +
-//       ' lorel' +
-//       ' lorem Lorem lorem lorel lorem 3', rate: null, positive: 'cool product 3', negative: 'no negative 3',  date: '22.12.2018'
-//   },
-// ];
+const styles = theme => ({
+  title: {
+    [theme.breakpoints.down('sm')]: {
+      fontSize: '1.5rem',
+    }
+  },
+});
 
-function ViewRewiews({reviews}) {
+function ViewRewiews({reviews, classes}) {
 
   const[isOpenDialog, setIsOpenDialog] = useState(false);
 
@@ -44,7 +34,7 @@ function ViewRewiews({reviews}) {
     <Fragment>
       <Grid container justify="space-between">
       <Grid item>
-        <Typography variant="h4" gutterBottom>
+        <Typography variant="h5" gutterBottom className={classes.title}>
           Reviews of name of product
         </Typography>
       </Grid>
@@ -65,7 +55,6 @@ function ViewRewiews({reviews}) {
 }
 
 const mapStateToProps = state => {
-  console.log(state)
   return {
     reviews: state.firestore.ordered.reviews
   }
@@ -77,5 +66,6 @@ export default compose(
     {collection: 'reviews'}
   ]),
   connect(mapStateToProps),
+  withStyles(styles)
 
 )(ViewRewiews);

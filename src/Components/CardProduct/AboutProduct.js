@@ -15,18 +15,18 @@ import SliderGoodsImg from "../SliderGoodsImg";
 
 AboutProduct.propTypes = {};
 
-function AboutProduct({classes}) {
+function AboutProduct() {
   return (
     <Fragment>
       <Grid container>
-        <Grid item md={8}>
+        <Grid item md={8} sm={12}>
           <SliderGoodsImg/>
         </Grid>
-        <Grid item md={4}>
+        <Grid item md={4} sm={12}>
           <Card>
             <Availability/>
             <CardContent>
-              <Grid container>
+              <Grid container justify="flex-start">
                 <Grid item md={4}>
                   <Price/>
                 </Grid>

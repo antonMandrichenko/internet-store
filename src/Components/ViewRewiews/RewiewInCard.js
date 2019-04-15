@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles/index';
+import { withStyles } from '@material-ui/core/styles';
 import moment from 'moment';
 import Paper from "@material-ui/core/Paper/index";
 import Grid from "@material-ui/core/Grid/index";
@@ -23,25 +23,34 @@ const styles = theme => ({
   },
   dateGrid: {
     display: 'flex',
-    justifyContent: 'flex-end'
+    justifyContent: 'flex-end',
+    [theme.breakpoints.down('xs')]: {
+      order: -1,
+    }
+  },
+  title: {
+    [theme.breakpoints.down('xs')]: {
+      display: 'flex',
+      flexDirection: 'column'
+    }
   }
 });
 
 function RewiewInCard({classes, review}) {
   return (
     <Paper elevation={1} className={classes.typogr}>
-      <Grid container>
-        <Grid item md={2}>
+      <Grid container className={classes.title}>
+        <Grid item xs={12} sm={12} className={classes.name}>
           <Typography variant="h6" component="h6">
             {review.username || 'Anonim'}
           </Typography>
         </Grid>
-        <Grid item md={2}>
+        <Grid item xs={12} sm={12} className={classes.stars}>
           <StarRates rate={review.rate}/>
         </Grid>
-        <Grid item md={8} className={classes.dateGrid}>
+        <Grid item xs={12} sm={12} className={classes.dateGrid}>
           <Typography variant="body2" component="p">
-            {moment(review.date).format('DD.MM.YYYY')}
+            {moment(review.createdAt.toDate()).format('DD.MM.YYYY')}
           </Typography>
         </Grid>
       </Grid>

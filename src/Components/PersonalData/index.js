@@ -9,11 +9,16 @@ const styles = theme => ({
   subHeader: {
     fontSize: '1rem',
   },
+  root: {
+    [theme.breakpoints.down('sm')]: {
+      display: 'none',
+    }
+  },
 });
 
 function PersonalData({classes}) {
   return (
-    <List component="nav">
+    <List component="nav" className={classes.root}>
       <ListSubheader component="div" className={classes.subHeader} color="primary">Customer</ListSubheader>
       <ListItem button>
         <ListItemText secondary="Personal data" />

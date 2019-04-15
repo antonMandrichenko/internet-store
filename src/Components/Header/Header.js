@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { withStyles } from '@material-ui/core/styles';
@@ -10,17 +10,21 @@ import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import Grid from '@material-ui/core/Grid';
 import Menu from './Menu';
-import Avatar from "@material-ui/core/Avatar";
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
-import ShopCart from "../ShopCart";
 import Login from "./Login";
 import Logout from "./Logout";
+import { NavLink } from "react-router-dom";
+import { signOut } from "../../store/actions/authActions";
+import { withFirebase } from "react-redux-firebase";
+import MobileMenuDrawer from "./MobileMenuDrawer";
+import Link from "@material-ui/core/Link";
 
 
 const styles = theme => ({
   root: {
     flexGrow: 1,
     padding: 0,
+    marginBottom: '.5rem'
   },
   appBar: {
     zIndex: theme.zIndex.drawer + 10,
@@ -33,27 +37,51 @@ const styles = theme => ({
   menuTitle: {
     display: 'flex',
     justifyContent: 'flex-start',
-    alignItems: 'center'
+    alignItems: 'center',
+    [theme.breakpoints.down('md')]: {
+      display: 'none',
+    }
   },
   avatar: {
     margin: 10,
     width: 30,
     height: 30,
   },
+  mobileMenu: {
+    display: 'none',
+    [theme.breakpoints.down('sm')]: {
+      display: 'block',
+    }
+  },
+  toolBar: {
+    width: '70%',
+    margin: '0 auto',
+    padding: 0,
+    [theme.breakpoints.down('md')]: {
+      width: '100%',
+    }
+  },
+  navLink: {
+    color: theme.palette.common.white,
+  },
 });
 
-function Header({classes}) {
+function Header({classes, signOutSubmit, auth}) {
 
-  const [pos, setPos] = useState(null);
-  const [isOpenCart, setIsOpenCart] = useState(false);
+  // const [isOpenCart, setIsOpenCart] = useState(false);
+  const [isOpenMenu, setIsOpenMenu] = useState(false);
 
-  const handleClick = () => {
-    console.log('ghghghgh')
+  const handleOpenMenu = () => {
+    setIsOpenMenu(!isOpenMenu);
   };
 
-  const handleOpenCart = () => {
-    setIsOpenCart(!isOpenCart);
+  const handleOut = () => {
+    console.log('signout')
   };
+
+  // const handleOpenCart = () => {
+  //   setIsOpenCart(!isOpenCart);
+  // };
 
   // const handleClose = () => {
   //   setIsOpenCart(false);
@@ -62,32 +90,38 @@ function Header({classes}) {
   return (
     <div className={classes.root}>
       <AppBar position="static" color="primary" className={classes.appBar}>
-        <Toolbar variant="dense" style={{width: '70%', margin: '0 auto', padding: 0}}>
-          {pos
-            ? <IconButton color="inherit" aria-label="Menu">
-                <MenuIcon />
-              </IconButton>
-            : null
-          }
+        <Toolbar variant="dense" style={{}} className={classes.toolBar}>
+          <IconButton color="inherit" aria-label="Menu" className={classes.mobileMenu} onClick={handleOpenMenu}>
+            <MenuIcon />
+          </IconButton>
+          <MobileMenuDrawer isOpenMenu={isOpenMenu} handleOpenMenu={handleOpenMenu}/>
           <Grid container>
-            <Grid item xs={1} className={classes.menuTitle}>
-              <Typography variant="h6" color="inherit">
-                News
-              </Typography>
+            <Grid item lg={1} className={classes.menuTitle}>
+              <Link  color="textPrimary" underline="none" component={NavLink} to="/">
+                <Typography variant="h6" color="inherit">
+                  News
+                </Typography>
+              </Link>
             </Grid>
-            <Grid item xs={9} >
+            <Grid item lg={8} xs={8} md={9}>
               <Menu/>
             </Grid>
-            <Grid item xs={2} className={classes.menuButton}>
-              <Button color="inherit" onClick={handleOpenCart}>Cart<AddShoppingCartIcon/></Button>
-              <Login handleClick={handleClick}/>
-              <Logout handleClick={handleClick}/>
-              <Avatar alt="Remy Sharp" src="./img/avatar.jpg" className={classes.avatar} />
+            <Grid item lg={3} xs={4} md={3} className={classes.menuButton}>
+              <Link  color="textPrimary" underline="none" component={NavLink} to="/shopcart">
+                <Button color="inherit" className={classes.cart}>
+                  Cart
+                  <AddShoppingCartIcon/>
+                </Button>
+              </Link>
+              {
+                auth.uid
+                  ? <Logout signOutSubmit={signOutSubmit}/>
+                  : <Login/>
+              }
             </Grid>
           </Grid>
         </Toolbar>
       </AppBar>
-      <ShopCart isOpenCart={isOpenCart} handleOpenCart={handleOpenCart}/>
     </div>
 
   );
@@ -95,11 +129,19 @@ function Header({classes}) {
 
 const mapStateToProps = state => {
   return {
+    auth: state.firebase.auth
+  }
+};
 
+const mapDispatchToProps = (dispatch, ownProps) => {
+  console.log(ownProps, dispatch);
+  return {
+    signOutSubmit: () => dispatch(signOut(dispatch, ownProps))
   }
 };
 
 export default compose(
+  withFirebase,
   withStyles(styles),
-  connect(mapStateToProps)
+  connect(mapStateToProps, mapDispatchToProps)
 )(Header);

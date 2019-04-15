@@ -1,18 +1,20 @@
-import React from 'react';
+import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import FormControl from '@material-ui/core/FormControl';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
 import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
-import withStyles from '@material-ui/core/styles/withStyles';
-import Dialog from "@material-ui/core/Dialog";
+import { withStyles } from '@material-ui/core/styles';
+import { register } from "../../store/actions/authActions";
+import { compose } from "redux";
+import { withFirebase, withFirestore } from "react-redux-firebase";
+import { connect } from "react-redux";
+import { Redirect } from "react-router-dom";
 
 const styles = theme => ({
   main: {
@@ -46,11 +48,33 @@ const styles = theme => ({
   },
 });
 
-function Registered(props) {
-  const { classes, handleOpenDialog, isOpenDialog } = props;
+function Registered({classes, signUpSubmit, auth}) {
+
+  const initState = {
+    firstName: '',
+    secondName: '',
+    email: '',
+    password: ''
+  };
+
+  const[signupData, setSignupData] = useState(initState);
+
+  const handleChange = (e) => {
+    setSignupData({
+      ...signupData,
+      [e.target.id]: e.target.value
+    });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    signUpSubmit(signupData);
+  };
+
+  if (auth.uid)
+    return <Redirect to='/' />;
 
   return (
-
       <main className={classes.main}>
         <CssBaseline />
         <Paper className={classes.paper}>
@@ -60,22 +84,22 @@ function Registered(props) {
           <Typography component="h1" variant="h5">
             Register
           </Typography>
-          <form className={classes.form}>
+          <form className={classes.form} onSubmit={handleSubmit}>
             <FormControl margin="normal" required fullWidth>
               <InputLabel htmlFor="firstName">First name</InputLabel>
-              <Input id="firstName" name="firstName" autoFocus />
+              <Input id="firstName" name="firstName" autoFocus onChange={handleChange} />
             </FormControl>
             <FormControl margin="normal" required fullWidth>
               <InputLabel htmlFor="secondName">Second name</InputLabel>
-              <Input id="secondName" name="secondName"/>
+              <Input id="secondName" name="secondName" onChange={handleChange}/>
             </FormControl>
             <FormControl margin="normal" required fullWidth>
               <InputLabel htmlFor="email">Email Address</InputLabel>
-              <Input id="email" name="email" autoComplete="email"/>
+              <Input id="email" name="email" autoComplete="email" onChange={handleChange}/>
             </FormControl>
             <FormControl margin="normal" required fullWidth>
               <InputLabel htmlFor="password">Password</InputLabel>
-              <Input name="password" type="password" id="password" autoComplete="current-password" />
+              <Input name="password" type="password" id="password" autoComplete="current-password" onChange={handleChange}/>
             </FormControl>
             <Button
               type="submit"
@@ -96,4 +120,22 @@ Registered.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(Registered);
+const mapStateToProps = state => {
+  console.log(state);
+  return {
+    authError: state.auth.authError,
+    auth: state.firebase.auth
+  }};
+
+const mapDispatchToProps = (dispatch, ownProps) => {
+  return {
+    signUpSubmit: (data) => dispatch(register(ownProps, dispatch, data))
+  }
+};
+
+export default compose(
+  withFirebase,
+  withFirestore,
+  withStyles(styles),
+  connect(mapStateToProps, mapDispatchToProps)
+) (Registered);

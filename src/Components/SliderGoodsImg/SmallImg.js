@@ -9,15 +9,18 @@ const styles = theme => ({
     height: heightImg + 20,
     display: 'flex',
     justifyContent: 'center',
-    alignItems: 'flex-start'
+    alignItems: 'flex-start',
+    [theme.breakpoints.down('sm')]: {
+      display: 'none',
+    },
+    [theme.breakpoints.down('md')]: {
+      width: 'auto',
+      margin: '.3rem',
+    },
   },
   image: {
-    // width: '80%'
-    // height: '80%',
     height: heightImg,
 
-
-    // margin: '0.2rem'
   },
   borderImg: {
     padding: 5,

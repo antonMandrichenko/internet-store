@@ -1,9 +1,16 @@
-import React, {Fragment} from 'react';
+import React from 'react';
+import { withStyles } from '@material-ui/core/styles';
 import Button from "@material-ui/core/Button";
 
-function Pagination() {
+const styles = theme => ({
+  root: {
+    marginTop: '.5rem'
+  },
+});
+
+function Pagination({classes}) {
   return (
-    <Fragment>
+    <div className={classes.root}>
       <Button variant="outlined" color="primary">
         1
       </Button>
@@ -13,9 +20,9 @@ function Pagination() {
       <Button variant="outlined" color="primary">
        3
       </Button>
-    </Fragment>
+    </div>
 
   );
 }
 
-export default Pagination;
+export default withStyles(styles)(Pagination);

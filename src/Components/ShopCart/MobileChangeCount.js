@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import Dialog from "@material-ui/core/Dialog";
 import DialogContent from "@material-ui/core/DialogContent";
@@ -18,7 +18,7 @@ function MobileChangeCount({ isOpenDialog,
 
   return (
     <Dialog
-      fullWidth="true"
+      fullWidth
       open={isOpenDialog}
       onClose={handleClose}
       aria-labelledby="max-width-dialog-title"

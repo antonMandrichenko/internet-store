@@ -1,8 +1,18 @@
 import React from 'react';
-import {Switch, Route} from "react-router-dom";
+import { Switch, Route } from "react-router-dom";
 import Layouts from './Components/Layouts'
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import './App.css';
+import Header from "./Components/Header/Header";
+import CardProduct from "./Components/CardProduct";
+import SignIn from "./Components/SignInForm";
+import AddReview from "./Components/ViewRewiews/AddReview";
+import Registered from "./Components/RegisterForm";
+import ShopCart from "./Components/ShopCart";
+import Checkout from "./Components/Checkout";
+import Dashboard from "./Components/DashboardAdmin/Dashboard";
+import AboutUs from "./Components/AboutUs";
+import ForCostumers from "./Components/ForCostumers";
 
 
 
@@ -46,6 +56,7 @@ const App = (props) => {
       }
     }
   });
+
   //
   // const addGoodsInBasket = (good) => {
   //   // this.setState({
@@ -81,7 +92,21 @@ const App = (props) => {
 
     return (
       <MuiThemeProvider theme={theme}>
-        <Layouts/>
+        <Header/>
+        <Switch>
+          <Route exact path="/" component={Layouts}/>
+          <Route path="/products/:product" component={CardProduct}/>
+          <Route path="/signin" component={SignIn}/>
+          {/*<Redirect from='/signin' to='/'/>*/}
+          <Route path="/create-review" component={AddReview}/>
+          <Route path="/register" component={Registered}/>
+          <Route path="/dashboard" component={Dashboard}/>
+          <Route path="/shopcart" component={ShopCart}/>
+          <Route path="/checkout" component={Checkout}/>
+          <Route path="/aboutus" component={AboutUs}/>
+          <Route path="/forcostumers" component={ForCostumers}/>
+        </Switch>
+        {/*<Layouts/>*/}
       </MuiThemeProvider>
     );
 };

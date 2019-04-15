@@ -11,11 +11,8 @@ ReviewForReview.propTypes = {
 
 const styles = theme => ({
   reviewView: {
-    // width: '90%',
-    // marginLeft: '2rem',
     display: 'flex',
     justifyContent: 'flex-end'
-    // marginBottom: '1rem'
   },
   dateGrid: {
     display: 'flex',
@@ -26,15 +23,15 @@ const styles = theme => ({
 function ReviewForReview({classes}) {
   return (
     <Grid container className={classes.reviewView}>
-      <Grid item md={11}>
+      <Grid item xs={11}>
         <Divider />
         <Grid container>
-          <Grid item md={4}>
+          <Grid item md={4} xs={5}>
             <Typography variant="h6" component="h6">
            Alibaba
             </Typography>
           </Grid>
-          <Grid item md={8} className={classes.dateGrid}>
+          <Grid item md={8} xs={7} className={classes.dateGrid}>
             <Typography variant="body2" component="p">
              22.12.2018
             </Typography>

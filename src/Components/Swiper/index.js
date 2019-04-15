@@ -1,14 +1,18 @@
 import React, {useEffect, useState} from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import Swiper from 'swiper/dist/js/swiper.esm.bundle';
-// import './swiper.css'
 
 const styles = theme => ({
   swiper1: {
     width: '90%',
     height: '400px',
-    // border: '1px solid black',
-    marginBottom: '2rem'
+    marginBottom: '2rem',
+    [theme.breakpoints.down('sm')]: {
+      width: '100%',
+    },
+    [theme.breakpoints.down('xs')]: {
+      display: 'none',
+    }
   },
   'swiper-slide': {
     textAlign: 'center',
@@ -24,12 +28,13 @@ const styles = theme => ({
 });
 
 function SwiperRow({classes}) {
+
+  let _isMounted = false;
   const [slides, setSlides] = useState(['slide1', 'slide2', 'slide3']);
   const [virtualData, setVirtualData] = useState({slides: []});
 
-  // let myswiper;
-
   useEffect(() => {
+    _isMounted = true;
     const myswiper2 = new Swiper('#swiper1', {
       initialSlide: 0,
       navigation: {
@@ -49,11 +54,15 @@ function SwiperRow({classes}) {
       virtual: {
         slides: slides,
         renderExternal(data) {
+          if(_isMounted)
           setVirtualData(data);
         },
         from: 1
       },
     });
+    return () => {
+      _isMounted = false;
+    }
   }, []);
 
   return (

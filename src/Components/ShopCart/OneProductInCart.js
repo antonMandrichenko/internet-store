@@ -1,14 +1,9 @@
 import React, {Fragment} from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import DialogContent from "@material-ui/core/DialogContent";
-import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
-import Dialog from "@material-ui/core/Dialog";
 import Divider from '@material-ui/core/Divider';
-import Button from "@material-ui/core/Button";
-import IconButton from "@material-ui/core/IconButton";
 import ClearIcon from '@material-ui/icons/Clear';
 import Fab from "@material-ui/core/Fab";
 import ChangeCount from "./ChangeCount";
@@ -61,8 +56,9 @@ function OneProductInCart({classes, id}) {
           xs={3}
           className={classes.first}>
           <img
-            src={'./img/avatar.jpg'}
+            src={'./products/img/avatar.jpg'}
             className={classes.image}
+            alt={'product'}
           />
         </Grid>
         <Grid
@@ -91,14 +87,14 @@ function OneProductInCart({classes, id}) {
         <Grid
           item
           md={2}
-          xs={4}
+          xs={5}
           className={classes.third}>
             <ChangeCount id={id}/>
         </Grid>
         <Grid
           item
           md={2}
-          xs={4}
+          xs={3}
           className={classes.third}>
           <Typography
             variant="subtitle1"

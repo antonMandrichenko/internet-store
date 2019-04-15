@@ -11,12 +11,10 @@ import InputLabel from '@material-ui/core/InputLabel';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
-import withStyles from '@material-ui/core/styles/withStyles';
-import Dialog from "@material-ui/core/Dialog";
+import { withStyles } from '@material-ui/core/styles';
 import { signIn } from '../../store/actions/authActions'
 import { withFirebase } from "react-redux-firebase";
-import SnackbarContent from "@material-ui/core/SnackbarContent";
-
+import {Redirect} from "react-router-dom";
 
 const styles = theme => ({
   main: {
@@ -55,10 +53,9 @@ const styles = theme => ({
 });
 
 function SignIn({ classes,
-                  handleOpenDialog,
-                  isOpenDialog,
                   signInSubmit,
-                  authError
+                  authError,
+                  auth
 }) {
 
   const initState = {
@@ -73,7 +70,6 @@ function SignIn({ classes,
       ...signInObj,
       [e.target.id]: e.target.value
     });
-    console.log(signInObj)
   };
 
   const handleSubmit = (e) => {
@@ -81,53 +77,58 @@ function SignIn({ classes,
     signInSubmit(signInObj);
   };
 
+  if (auth.uid)
+    return <Redirect to='/' />;
+
   return (
-    <Dialog
-      open={isOpenDialog}
-      onClose={handleOpenDialog}>
-      <main className={classes.main}>
-        <CssBaseline />
-        <Paper className={classes.paper}>
-          <Avatar className={classes.avatar}>
-            <LockOutlinedIcon />
-          </Avatar>
-          <Typography component="h1" variant="h5">
-            Sign in
-          </Typography>
-          <form className={classes.form} onSubmit={handleSubmit}>
-            <FormControl margin="normal" required fullWidth>
-              <InputLabel htmlFor="email">Email Address</InputLabel>
-              <Input id="email" name="email" autoComplete="email" autoFocus onChange={handleChange}/>
-            </FormControl>
-            <FormControl margin="normal" required fullWidth>
-              <InputLabel htmlFor="password">Password</InputLabel>
-              <Input name="password" type="password" id="password" autoComplete="current-password" onChange={handleChange}/>
-            </FormControl>
+    <main className={classes.main}>
+      <CssBaseline />
+      <Paper className={classes.paper}>
+        <Avatar className={classes.avatar}>
+          <LockOutlinedIcon />
+        </Avatar>
+        <Typography component="h1" variant="h5">
+          Sign in
+        </Typography>
+        <form className={classes.form} onSubmit={handleSubmit}>
+          <FormControl margin="normal" required fullWidth>
+            <InputLabel htmlFor="email">Email Address</InputLabel>
+            <Input id="email" name="email" autoComplete="email" autoFocus onChange={handleChange}/>
+          </FormControl>
+          <FormControl margin="normal" required fullWidth>
+            <InputLabel htmlFor="password">Password</InputLabel>
+            <Input name="password" type="password" id="password" autoComplete="current-password" onChange={handleChange}/>
+          </FormControl>
             <Button
               type="submit"
               fullWidth
               variant="contained"
               color="primary"
               className={classes.submit}
-              // onClick={handleOpenDialog}
+              // onClick={handleOnClick}
             >
-              Sign in
-            </Button>
-            <div className={classes.error}>{authError ? authError.message : null}</div>
-          </form>
-        </Paper>
-      </main>
-    </Dialog>
+            Sign in
+          </Button>
+          <div className={classes.error}>{authError ? authError.message : null}</div>
+        </form>
+      </Paper>
+    </main>
   );
 }
 
 SignIn.propTypes = {
   classes: PropTypes.object.isRequired,
+  signInSubmit: PropTypes.func.isRequired,
+  authError: PropTypes.object,
+  auth: PropTypes.object.isRequired
 };
 
-const mapStateToProps = state => ({
-  authError: state.auth.authError
-});
+const mapStateToProps = state => {
+  console.log(state);
+  return {
+    authError: state.auth.authError,
+    auth: state.firebase.auth
+}};
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {

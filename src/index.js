@@ -7,14 +7,13 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import reduxThunk from 'redux-thunk';
 import {BrowserRouter} from "react-router-dom";
 import { reduxFirestore, getFirestore } from 'redux-firestore';
-import { reactReduxFirebase, ReactReduxFirebaseProvider, getFirebase } from 'react-redux-firebase';
+import { ReactReduxFirebaseProvider } from 'react-redux-firebase';
 import { createFirestoreInstance } from 'redux-firestore'
 import firebase from 'firebase/app';
 import 'firebase/firestore';
 import 'firebase/auth';
 import './index.css';
 import App from './App';
-import * as serviceWorker from './serviceWorker';
 
 const firebaseConf = {
   apiKey: "AIzaSyB4weXJ5vBVo0hex0Y1h2b-tncIF3OGU1g",
@@ -27,6 +26,7 @@ const firebaseConf = {
 
 const rrfConfig = {
   userProfile: 'users',
+  attachAuthIsReady: true,
   useFirestoreForProfile: true
 };
 
@@ -41,7 +41,7 @@ const store = createStore(
         reduxThunk.withExtraArgument({
           getFirestore}
           ))),
-    reduxFirestore(firebase),
+    reduxFirestore(firebase)
   )
 );
 
@@ -50,7 +50,7 @@ const rrfProps = {
   config: rrfConfig,
   createFirestoreInstance,
   dispatch: store.dispatch,
-}
+};
 
 const AppStore = () => ( <Provider store={store}>
                            <ReactReduxFirebaseProvider {...rrfProps}>

@@ -1,9 +1,18 @@
 import React from 'react';
+import { withStyles } from '@material-ui/core/styles';
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
 import IconButton from "@material-ui/core/IconButton";
+
+const styles = theme => ({
+  root: {
+    [theme.breakpoints.down('sm')]: {
+      display: 'none',
+    }
+  },
+});
 
 const categories = [
   'Стенки',
@@ -15,9 +24,9 @@ const categories = [
   'Кровати',
 ];
 
-function Aside() {
+function Aside({classes}) {
   return (
-    <List >
+    <List className={classes.root}>
       {
         categories.map((item) =>
           <ListItem button key={item}>
@@ -38,4 +47,4 @@ function Aside() {
   );
 }
 
-export default Aside;
+export default withStyles(styles)(Aside);

@@ -11,7 +11,7 @@ import ViewRewiews from "../ViewRewiews";
 
 function TabContainer(props) {
   return (
-    <Card component="div" style={{ padding: 10}}>
+    <Card component="div" style={{ padding: '.5rem'}}>
       {props.children}
     </Card>
   );
@@ -46,6 +46,7 @@ function TabsProduct({classes}) {
             value={valueTab}
             onChange={handleChange}
             indicatorColor="primary"
+            variant="scrollable"
             textColor="primary"
             scrollButtons="auto"
           >

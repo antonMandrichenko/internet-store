@@ -8,7 +8,7 @@ const styles = theme => ({
     ...theme.typography.button,
     backgroundColor: theme.palette.primary.main,
     padding: theme.spacing.unit,
-    width: 140,
+    width: 'auto',
     textAlign: 'center',
     fontSize: '1.5rem'
   },
