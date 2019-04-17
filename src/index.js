@@ -12,23 +12,8 @@ import { createFirestoreInstance } from 'redux-firestore'
 import firebase from 'firebase/app';
 import 'firebase/firestore';
 import 'firebase/auth';
-import './index.css';
-import App from './App';
-
-const firebaseConf = {
-  apiKey: "AIzaSyB4weXJ5vBVo0hex0Y1h2b-tncIF3OGU1g",
-  authDomain: "internet-store-62659.firebaseapp.com",
-  databaseURL: "https://internet-store-62659.firebaseio.com",
-  projectId: "internet-store-62659",
-  storageBucket: "internet-store-62659.appspot.com",
-  messagingSenderId: "426370427599"
-};
-
-const rrfConfig = {
-  userProfile: 'users',
-  attachAuthIsReady: true,
-  useFirestoreForProfile: true
-};
+import App from './Components/App';
+import { firebaseConf, rrfConfig } from "./configFB";
 
 firebase.initializeApp(firebaseConf);
 firebase.firestore();
@@ -54,7 +39,7 @@ const rrfProps = {
 
 const AppStore = () => ( <Provider store={store}>
                            <ReactReduxFirebaseProvider {...rrfProps}>
-                              <BrowserRouter>
+                              <BrowserRouter> {/*basename={'/internet-store'}>*/}
                                 <App/>
                               </BrowserRouter>
                             </ReactReduxFirebaseProvider>

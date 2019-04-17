@@ -5,7 +5,7 @@ Checkout.propTypes = {
 
 };
 
-function Checkout(props) {
+function Checkout() {
   return (
     <div>Checkout</div>
   );
