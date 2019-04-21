@@ -11,19 +11,22 @@ import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
 import { styles } from "./style";
-import { mapDispatchToProps } from "./redux";
+import { mapStateToProps, mapDispatchToProps } from "./redux";
+import { withFirestore } from "react-redux-firebase";
 
 AddReview.propTypes = {
   classes: PropTypes.object.isRequired,
   isOpenDialog: PropTypes.bool.isRequired,
   handleOpenDialog: PropTypes.func.isRequired,
   createReview: PropTypes.func.isRequired,
+  product: PropTypes.object.isRequired,
 };
 
 function AddReview({ classes,
                      isOpenDialog,
                      handleOpenDialog,
-                     createReview
+                     createReview,
+                     product
 }) {
 
   const initState = {
@@ -32,7 +35,8 @@ function AddReview({ classes,
     description: '',
     username: '',
     email: '',
-    rate: ''
+    rate: '',
+    idProduct: product.id
   };
 
   const [rate, useRate] = useState(null);
@@ -41,7 +45,6 @@ function AddReview({ classes,
   const [reviewCreate, setReviewCreate] = useState(initState);
 
   const handleChange = e => {
-    console.log(reviewCreate);
     setReviewCreate({
       ...reviewCreate,
       [e.target.id]: e.target.value
@@ -72,7 +75,7 @@ function AddReview({ classes,
 
   const handleSubmit = event => {
     event.preventDefault();
-    createReview(reviewCreate);
+    createReview(reviewCreate, product);
     setReviewCreate(initState);
   };
 
@@ -162,6 +165,7 @@ function AddReview({ classes,
 }
 
 export default compose(
-  connect(null, mapDispatchToProps),
+  withFirestore,
+  connect(mapStateToProps, mapDispatchToProps),
   withStyles(styles)
   )(AddReview);

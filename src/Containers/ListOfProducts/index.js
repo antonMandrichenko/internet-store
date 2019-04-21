@@ -6,29 +6,20 @@ import { compose } from 'redux';
 import {firestoreConnect, withFirebase, withFirestore} from "react-redux-firebase";
 import Minicart from "../../Components/Layouts/Minicart";
 import Grid from "@material-ui/core/Grid";
+import CircularIndeterminate from '../../Components/Circular'
 import { styles } from "./style";
 import { mapStateToProps, mapDispatchToProps } from "./redux";
 
 ListOfProducts.propTypes = {
-  classes: PropTypes.object.isRequired,
   products: PropTypes.any,
-  addToCart: PropTypes.func.isRequired,
-  deleteFromCart: PropTypes.func.isRequired,
+  handleToOrFromCart: PropTypes.func.isRequired,
   cart: PropTypes.array.isRequired,
 };
 
-function ListOfProducts({ classes,
-                          products,
-                          addToCart,
-                          deleteFromCart,
-                          cart
+function ListOfProducts({ products,
+                          cart,
+                          handleToOrFromCart
 }) {
-
-  const handleAddToCart = (product, isClick) => {
-    isClick
-      ? deleteFromCart(product.id)
-      : addToCart(product);
-  };
 
   return (
     <Grid container spacing={16}>
@@ -40,10 +31,10 @@ function ListOfProducts({ classes,
               isInCart = true;
           });
           return <Grid key={product.name} item lg={3} md={4} sm={6}>
-            <Minicart product={product} handleAddToCart={handleAddToCart} isInCart={isInCart}/>
+            <Minicart product={product} handleToOrFromCart={handleToOrFromCart} isInCart={isInCart}/>
           </Grid>
         })
-        : <div>loading products...</div>}
+        : <CircularIndeterminate/>}
     </Grid>
   );
 }

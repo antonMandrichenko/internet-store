@@ -15,11 +15,11 @@ import SliderGoodsImg from "./SliderGoodsImg";
 
 AboutProduct.propTypes = {
   product: PropTypes.object.isRequired,
-  handleAddToCart: PropTypes.func.isRequired,
+  handleToOrFromCart: PropTypes.func.isRequired,
   isInCart: PropTypes.bool.isRequired,
 };
 
-function AboutProduct({product, handleAddToCart, isInCart}) {
+function AboutProduct({product, handleToOrFromCart, isInCart}) {
   return (
     <Fragment>
       <Grid container>
@@ -38,7 +38,7 @@ function AboutProduct({product, handleAddToCart, isInCart}) {
                   <FavoriteIc large={'large'}/>
                 </Grid>
                 <Grid item md={2}>
-                  <AddShoppingCart large={'large'} product={product} handleAddToCart={handleAddToCart} isInCart={isInCart}/>
+                  <AddShoppingCart large={'large'} product={product} handleToOrFromCart={handleToOrFromCart} isInCart={isInCart}/>
                 </Grid>
               </Grid>
             </CardContent>
@@ -53,7 +53,7 @@ function AboutProduct({product, handleAddToCart, isInCart}) {
             </Grid>
             <Divider variant="middle"/>
           </Card>
-          <Specification/>
+          <Specification product={product}/>
           <Delivery/>
         </Grid>
       </Grid>

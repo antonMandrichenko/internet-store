@@ -8,6 +8,14 @@ export const deleteFromCart = (id) => ({
   id
 });
 
+export const handleToOrFromCart = (dispatch, product, isClick) => {
+  return () => {
+    isClick
+      ? dispatch(deleteFromCart(product.id))
+      : dispatch(addToCart(product))
+  }
+};
+
 export const addAmount = (id) => ({
   type: 'ADD_AMOUNT',
   id

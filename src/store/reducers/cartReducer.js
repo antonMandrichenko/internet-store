@@ -1,4 +1,4 @@
-const initState = {totalAmount: null, productsInCart: []};
+const initState = {totalAmount: null, productsInCart: [], isInCart: false};
 
 export default (store=initState, action) => {
   switch(action.type) {

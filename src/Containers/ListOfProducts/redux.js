@@ -1,16 +1,14 @@
-import {addToCart, deleteFromCart} from "../../store/actions/cartActions";
+import {addToCart, deleteFromCart, handleToOrFromCart } from "../../store/actions/cartActions";
 
 export const mapStateToProps = state => {
   return {
     products: state.firestore.ordered.products,
-    cart: state.cart.productsInCart
+    cart: state.cart.productsInCart,
   }
 };
 
 export const mapDispatchToProps = (dispatch) => {
   return {
-    addToCart: (product) => dispatch(addToCart(product)),
-    deleteFromCart: (id) => dispatch(deleteFromCart(id)),
-
+    handleToOrFromCart: (product, isClick) => dispatch(handleToOrFromCart(dispatch, product, isClick)),
   }
 };

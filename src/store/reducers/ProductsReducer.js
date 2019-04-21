@@ -1,14 +1,12 @@
-const initState = {};
+const initState = {currentProduct: {}};
 
 export default (store=initState, action) => {
   switch(action.type) {
-
-    case 'CHANGE_ITEM_LIST':
-      return action.payload;
-
-    case 'ADD_ITEM_TO_LIST':
-      return [...store];
-
-    default: return store;
+    case 'GET_CURRENT_PRODUCT':
+      return {currentProduct: action.product};
+    case 'NO_CURRENT_PRODUCT':
+      return {currentProduct: {}};
+    default:
+      return store;
   }
 }

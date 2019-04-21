@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import moment from 'moment';
 import { withStyles } from '@material-ui/core/styles';
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
@@ -10,7 +11,7 @@ ReviewForReview.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-function ReviewForReview({classes}) {
+function ReviewForReview({classes, description, username, date}) {
   return (
     <Grid container className={classes.reviewView}>
       <Grid item xs={11}>
@@ -18,17 +19,17 @@ function ReviewForReview({classes}) {
         <Grid container>
           <Grid item md={4} xs={5}>
             <Typography variant="h6" component="h6">
-           Alibaba
+              {username}
             </Typography>
           </Grid>
           <Grid item md={8} xs={7} className={classes.dateGrid}>
             <Typography variant="body2" component="p">
-             22.12.2018
+              {moment(date.toDate()).format('DD.MM.YYYY')}
             </Typography>
           </Grid>
         </Grid>
         <Typography component="p">
-          Lorem lorem lorem lorem lorem lorem
+          {description}
         </Typography>
       </Grid>
     </Grid>

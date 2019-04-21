@@ -14,6 +14,7 @@ import { compose } from "redux";
 import { connect } from "react-redux";
 import { styles } from "./style";
 import { mapStateToProps, mapDispatchToProps } from "./redux";
+import Paper from "@material-ui/core/Paper";
 
 ShopCart.propTypes = {
   classes: PropTypes.object.isRequired,
@@ -61,7 +62,7 @@ function ShopCart({ classes,
           <div className={classes.grid}>
             <DialogTitle id="responsive-dialog-title">{"Shop cart"}</DialogTitle>
             <Divider/>
-            <DialogContent>
+            {/*<DialogContent>*/}
               <Grid container className={classes.title}>
                 <Grid item md={2}>
                   <Typography variant="subtitle1" component="p" align="center">
@@ -104,7 +105,7 @@ function ShopCart({ classes,
                 All products cost: ${summary}
               </Typography>
 
-            </DialogContent>
+            {/*</DialogContent>*/}
             <DialogActions>
               <Button
                 onClick={handleRedirect}
@@ -121,9 +122,10 @@ function ShopCart({ classes,
             </DialogActions>
           </div>
         </Fragment>
-        : <Typography variant="h4" className={classes.grid}>
-          No products in cart
-        </Typography>
+
+        : <Paper className={classes.grid}>
+            <DialogTitle id="responsive-dialog-title">{"No product in cart"}</DialogTitle>
+          </Paper>
     }
     </Fragment>
   );

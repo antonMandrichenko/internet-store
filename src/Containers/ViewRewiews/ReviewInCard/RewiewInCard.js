@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import moment from 'moment';
@@ -9,6 +9,7 @@ import StarRates from "../../../Components/CardProduct/StarsRate";
 import Button from "@material-ui/core/Button";
 import ReplayIcon from '@material-ui/icons/Replay';
 import ReviewForReview from "../ReviewForReview";
+import AddReviewForReview from "../AddReviewForReview";
 import { styles } from "./style";
 
 RewiewInCard.propTypes = {
@@ -17,6 +18,13 @@ RewiewInCard.propTypes = {
 };
 
 function RewiewInCard({classes, review}) {
+
+  const[isOpenDialog, setIsOpenDialog] = useState(false);
+
+  const handleOpenDialog = () => {
+    setIsOpenDialog(!isOpenDialog)
+  };
+
   return (
     <Paper elevation={1} className={classes.typogr}>
       <Grid container className={classes.title}>
@@ -49,11 +57,26 @@ function RewiewInCard({classes, review}) {
         </Typography>
         : null
       }
-      <Button color="primary" size="medium">
+      <Button
+        color="primary"
+        size="medium"
+        onClick={handleOpenDialog}>
         <ReplayIcon/>
         Replay
       </Button>
-      <ReviewForReview/>
+      <AddReviewForReview
+        isOpenDialog={isOpenDialog}
+        handleOpenDialog={handleOpenDialog}
+        id={review.id}
+      />
+      {review.reviewForReview.map((review) =>
+        <ReviewForReview
+          key={review.createdAt}
+          description={review.description}
+          username={review.username}
+          date={review.createdAt}
+        />)}
+
     </Paper>
   );
 }

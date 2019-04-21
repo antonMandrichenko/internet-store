@@ -2,12 +2,12 @@ import React, {useState} from 'react';
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 import IconButton from "@material-ui/core/IconButton";
 
-function AddShoppingCart({large, handleAddToCart, product, isInCart}) {
+function AddShoppingCart({large, handleToOrFromCart, product, isInCart}) {
 
   const [isClickAble, setIsClick] = useState(isInCart);
 
   const changeHandle = () => {
-    handleAddToCart(product, isClickAble);
+    handleToOrFromCart(product, isClickAble);
     setIsClick(!isClickAble);
   };
 

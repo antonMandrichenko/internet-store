@@ -1,7 +1,7 @@
 export const styles = theme => ({
   swiper1: {
-    width: '90%',
-    height: '400px',
+    width: '100%',
+    height: '500px',
     marginBottom: '2rem',
     [theme.breakpoints.down('sm')]: {
       width: '100%',

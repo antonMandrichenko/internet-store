@@ -11,6 +11,7 @@ import Card from "@material-ui/core/Card";
 
 Specification.propTypes = {
   classes: PropTypes.object.isRequired,
+  product: PropTypes.object.isRequired,
 };
 
 const styles = () => ({
@@ -19,14 +20,14 @@ const styles = () => ({
   },
 });
 
-const rows = [
-  ['Width', 120],
-  ['Height', 700],
-  ['Longer', 500],
-  ['Material', 'tree'],
-];
-
-function Specification({classes}) {
+function Specification({classes, product}) {
+  const rows = [
+    ['Width', product.specification.width],
+    ['Height', product.specification.height],
+    ['Weight', product.specification.weight],
+    ['Color', product.specification.color],
+    ['Country', product.specification.country],
+  ];
   return (
     <Card className={classes.card}>
       <Paper>

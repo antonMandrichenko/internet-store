@@ -2,7 +2,8 @@ export const styles = theme => ({
   typogr: {
     width: '100%',
     padding: '0.5rem',
-    marginBottom: '1rem'
+    marginBottom: '1rem',
+    border: '1px solid grey',
   },
   dateGrid: {
     display: 'flex',

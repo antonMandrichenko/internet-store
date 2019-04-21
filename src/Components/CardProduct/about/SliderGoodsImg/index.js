@@ -16,6 +16,7 @@ function SliderGoodsImg({classes, img}) {
     img.first,
     img.second,
     img.third,
+    img.fourth,
   ]);
   const [virtualData, setVirtualData] = useState({slides: []});
   const [swipe, setSwipe] = useState({});
@@ -53,7 +54,7 @@ function SliderGoodsImg({classes, img}) {
       <Grid item lg={2} xs={12} md={12} className={classes.smallImg}>
       {slides.map((img, ind) =>
           <SmallImg
-            key={img}
+            key={ind*100*Math.random()}
             src={slides[ind]}
             ind={ind}
             activeIndexImg={activeIndex}

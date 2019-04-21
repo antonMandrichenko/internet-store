@@ -6,7 +6,7 @@ import StarBorderIcon from '@material-ui/icons/StarBorder';
 StarRates.propTypes = {
   fontSize: PropTypes.string,
   onOver: PropTypes.func,
-  rate: PropTypes.number,
+  rate: PropTypes.string,
   handleSelectStar: PropTypes.func,
   onLeave: PropTypes.func,
 };

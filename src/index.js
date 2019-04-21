@@ -39,7 +39,7 @@ const rrfProps = {
 
 const AppStore = () => ( <Provider store={store}>
                            <ReactReduxFirebaseProvider {...rrfProps}>
-                              <BrowserRouter> {/*basename={'/internet-store'}>*/}
+                              <BrowserRouter basename={'/internet-store'}>
                                 <App/>
                               </BrowserRouter>
                             </ReactReduxFirebaseProvider>

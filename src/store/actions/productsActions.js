@@ -1,12 +1,9 @@
-export const getProducts = (props, dispatch, data) => {
-  return () => {
-    props.firebase.auth().signInWithEmailAndPassword(
-      data.email,
-      data.password
-    ).then(() => {
-      dispatch({ type: 'LOGIN_SUCCESS'})
-    }).catch((err) => {
-      dispatch({ type: 'LOGIN_ERROR', err})
-    })
-  }
-};
+export const getCurrentProduct = product => ({
+    type: 'GET_CURRENT_PRODUCT',
+    product
+});
+
+
+export const noCurrentProduct = () => ({
+    type: 'NO_CURRENT_PRODUCT',
+});

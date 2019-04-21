@@ -10,30 +10,40 @@ import AddShoppingCart from "../../Icons/AddShoppingCart";
 import FavoriteIc from "../../Icons/Favorite";
 import {NavLink} from "react-router-dom";
 import { styles } from "./style";
+import {connect} from "react-redux";
+import { mapDispatchToProps } from "./redux";
+import { compose } from "redux";
 
 Minicart.propTypes = {
   classes: PropTypes.object.isRequired,
   product: PropTypes.object.isRequired,
-  handleAddToCart: PropTypes.func.isRequired,
+  handleToOrFromCart: PropTypes.func.isRequired,
   isInCart: PropTypes.bool.isRequired,
+  getCurrentProduct: PropTypes.func.isRequired,
 };
 
 function Minicart({ classes,
                     product,
-                    handleAddToCart,
-                    isInCart
+                    handleToOrFromCart,
+                    isInCart,
+                    getCurrentProduct
 }) {
+
+  const handleCurrentProduct = () => {
+    getCurrentProduct(product);
+  };
+
   return (
     <Card className={classes.root}>
       <CardContent>
         <NavLink to={{
-          pathname: `/products/${product.name}`,
-          state: {
-            product:{...product, },
-          },
-          handleAddToCart: handleAddToCart,
-          isInCart: isInCart
-        }}>
+          pathname: `/products/${product.id}`,
+          // state: {
+          //   product:{...product, },
+          // },
+          // handleAddToCart: handleAddToCart,
+          // isInCart: isInCart
+        }} onClick={handleCurrentProduct}>
           <CardMedia
             className={classes.media}
             image={product.img.first}
@@ -50,7 +60,7 @@ function Minicart({ classes,
       <CardActions>
         <FavoriteIc/>
         <AddShoppingCart
-          handleAddToCart={handleAddToCart}
+          handleToOrFromCart={handleToOrFromCart}
           product={product}
           isInCart={isInCart}
         />
@@ -59,4 +69,7 @@ function Minicart({ classes,
   );
 }
 
-export default withStyles(styles)(Minicart);
+export default compose(
+  withStyles(styles),
+  connect(null, mapDispatchToProps)
+)(Minicart);

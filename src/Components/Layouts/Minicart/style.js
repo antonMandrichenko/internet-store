@@ -1,7 +1,8 @@
 export const styles = {
   root: {
     margin: '.3rem',
-    height: '20rem'
+    height: '20rem',
+    border: '1px solid grey'
   },
   media: {
     height: 150,

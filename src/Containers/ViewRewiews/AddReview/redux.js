@@ -1,7 +1,13 @@
-import {createReview} from "../../../store/actions/reviewActions";
+import { createReview } from "../../../store/actions/reviewActions";
 
-export const mapDispatchToProps = dispatch => {
+export const mapStateToProps = state => {
   return {
-    createReview: (review) => dispatch(createReview(review))
+    currentProduct: state.products.currentProduct
+  }
+};
+
+export const mapDispatchToProps = (dispatch, ownProps) => {
+  return {
+    createReview: (review, product) => dispatch(createReview(ownProps, dispatch, review, product))
   }
 };

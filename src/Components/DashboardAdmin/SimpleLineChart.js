@@ -9,19 +9,18 @@ import Tooltip from 'recharts/lib/component/Tooltip';
 import Legend from 'recharts/lib/component/Legend';
 
 const data = [
-  { name: 'Mon', Visits: 2200, Orders: 3400 },
-  { name: 'Tue', Visits: 1280, Orders: 2398 },
-  { name: 'Wed', Visits: 5000, Orders: 4300 },
-  { name: 'Thu', Visits: 4780, Orders: 2908 },
-  { name: 'Fri', Visits: 5890, Orders: 4800 },
-  { name: 'Sat', Visits: 4390, Orders: 3800 },
-  { name: 'Sun', Visits: 4490, Orders: 4300 },
+  { name: 'Mon', Visits: 40, Orders: 14 },
+  { name: 'Tue', Visits: 67, Orders: 13 },
+  { name: 'Wed', Visits: 99, Orders: 24 },
+  { name: 'Thu', Visits: 157, Orders: 67 },
+  { name: 'Fri', Visits: 225, Orders: 99 },
+  { name: 'Sat', Visits: 247, Orders: 106 },
+  { name: 'Sun', Visits: 303, Orders: 151 },
 ];
 
 function SimpleLineChart() {
   return (
-    // 99% per https://github.com/recharts/recharts/issues/172
-    <ResponsiveContainer width="99%" height={320}>
+    <ResponsiveContainer width="90%" height={500}>
       <LineChart data={data}>
         <XAxis dataKey="name" />
         <YAxis />
