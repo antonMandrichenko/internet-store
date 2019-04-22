@@ -17,6 +17,11 @@ const routes = [
       exact: true
     },
     {
+      path: "/:category/products",
+      component: Layouts,
+      exact: true
+    },
+    {
       path: "/products/:id",
       component: CardProduct,
       exact: false

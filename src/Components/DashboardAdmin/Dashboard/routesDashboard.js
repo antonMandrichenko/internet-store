@@ -6,6 +6,7 @@ import CategoryCreate from "../CategoryCreate";
 import ProductCreate from "../ProductCreate";
 import ReviewDashboard from "../ReviewDashboard";
 import ProductsList from "../ProductsList";
+import ProductEdit from "../ProductEdit";
 
 export const routes = [
   {
@@ -30,6 +31,10 @@ export const routes = [
   {
     path: "/dashboard/products/create",
     main: () => <ProductCreate/>
+  },
+  {
+    path: "/dashboard/products/edit",
+    main: () => <ProductEdit/>
   },
   {
     path: "/dashboard/sales",

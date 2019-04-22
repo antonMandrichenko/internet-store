@@ -12,11 +12,13 @@ import { createFirestoreInstance } from 'redux-firestore'
 import firebase from 'firebase/app';
 import 'firebase/firestore';
 import 'firebase/auth';
+import 'firebase/storage';
 import App from './Components/App';
 import { firebaseConf, rrfConfig } from "./configFB";
 
 firebase.initializeApp(firebaseConf);
 firebase.firestore();
+firebase.storage();
 
 const store = createStore(
   rootReducer,

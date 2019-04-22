@@ -1,4 +1,5 @@
 import {signOut} from "../../../store/actions/authActions";
+import {noCurrentCategory} from "../../../store/actions/productsActions";
 
 export const mapStateToProps = state => {
   return {
@@ -9,6 +10,7 @@ export const mapStateToProps = state => {
 export const mapDispatchToProps = (dispatch, ownProps) => {
   console.log(ownProps, dispatch);
   return {
-    signOutSubmit: () => dispatch(signOut(dispatch, ownProps))
+    signOutSubmit: () => dispatch(signOut(dispatch, ownProps)),
+    noCurrentCategory: () => dispatch(noCurrentCategory()),
   }
 };

@@ -8,16 +8,11 @@ import PropTypes from 'prop-types';
 
 SliderGoodsImg.propTypes = {
   classes: PropTypes.object.isRequired,
-  img: PropTypes.object.isRequired,
+  img: PropTypes.array.isRequired,
 };
 
 function SliderGoodsImg({classes, img}) {
-  const [slides] = useState([
-    img.first,
-    img.second,
-    img.third,
-    img.fourth,
-  ]);
+  const [slides] = useState([...img]);
   const [virtualData, setVirtualData] = useState({slides: []});
   const [swipe, setSwipe] = useState({});
   const [activeIndex, setActiveIndex] = useState(0);

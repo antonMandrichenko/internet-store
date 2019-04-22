@@ -42,9 +42,9 @@ function OneProductInCart({ classes,
           xs={3}
           className={classes.first}>
           <img
-            src={product.img.first}
+            src={product.img[0]}
             className={classes.image}
-            alt={product.img.first}
+            alt={product.img[0]}
           />
         </Grid>
         <Grid
@@ -55,7 +55,12 @@ function OneProductInCart({ classes,
           <Typography
             variant="subtitle1"
             component="p">
-            <strong>{product.name}</strong> {product.description}
+            <strong>{product.name}</strong>
+          </Typography>
+          <Typography
+            variant="p"
+            component="p">
+            {product.description.slice(0, 60).concat('...')}
           </Typography>
         </Grid>
         <Grid

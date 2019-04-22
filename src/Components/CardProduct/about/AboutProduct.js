@@ -38,7 +38,12 @@ function AboutProduct({product, handleToOrFromCart, isInCart}) {
                   <FavoriteIc large={'large'}/>
                 </Grid>
                 <Grid item md={2}>
-                  <AddShoppingCart large={'large'} product={product} handleToOrFromCart={handleToOrFromCart} isInCart={isInCart}/>
+                  <AddShoppingCart
+                    large={'large'}
+                    product={product}
+                    handleToOrFromCart={handleToOrFromCart}
+                    isInCart={isInCart}
+                  />
                 </Grid>
               </Grid>
             </CardContent>

@@ -1,79 +1,90 @@
-import React, { Fragment } from 'react';
+import React, {Fragment} from 'react';
 import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
-import withMobileDialog from '@material-ui/core/withMobileDialog';
-import DialogTitle from "@material-ui/core/DialogTitle";
-import Grid from "@material-ui/core/Grid";
-import Typography from "@material-ui/core/Typography";
-import Divider from "@material-ui/core/Divider";
+import {firestoreConnect, withFirebase, withFirestore} from "react-redux-firebase";
+import {connect} from "react-redux";
+import {mapDispatchToProps, mapStateToProps} from "./redux";
 import { compose } from "redux";
-// import { connect } from "react-redux";
-import { styles } from "./style";
-// import { mapStateToProps, mapDispatchToProps } from "./redux";
+import {withStyles} from '@material-ui/core/styles';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import Paper from '@material-ui/core/Paper';
+import Button from "@material-ui/core/Button";
+import { styles } from './style';
+import CircularIndeterminate from "../../Circular";
+import {withRouter} from "react-router-dom";
+import Typography from "@material-ui/core/Typography";
 
-CategoryList.propTypes = {
+ProductList.propTypes = {
+  products: PropTypes.any,
   classes: PropTypes.object.isRequired,
 };
 
-function CategoryList({classes}) {
+function ProductList({categories, classes, history, deleteCategory}) {
 
-  // const handleRedirect = () => {
-  //   // history.goBack();
-  // };
-  //
-  // const handleCheckout = () => {
-  //   // history.push('/checkout');
-  // };
-  //
-  // const handleDeleteFromCart = (id) => {
-  //   // deleteFromCart(id);
-  //   // totalAmount()
-  // };
+  const handleDelete = (id) => {
+    deleteCategory(id);
+  };
+
+
+  const handleCreateCategory = () => {
+    history.push("/dashboard/categories/create");
+  };
 
   return (
-        <Fragment>
-          <div className={classes.grid}>
-            <DialogTitle id="responsive-dialog-title">{"Shop cart"}</DialogTitle>
-            <Divider/>
-            <Grid container className={classes.title}>
-              <Grid item md={2}>
-                <Typography variant="subtitle1" component="p" align="center">
-                  <strong>Photo</strong>
-                </Typography>
-              </Grid>
-              <Grid item md={3}>
-                <Typography variant="subtitle1" component="p" align="center">
-                  <strong>About product</strong>
-                </Typography>
-              </Grid>
-              <Grid item md={2}>
-                <Typography variant="subtitle1" component="p" align="center">
-                  <strong>Price</strong>
-                </Typography>
-              </Grid>
-              <Grid item md={2}>
-                <Typography variant="subtitle1" component="p" align="center">
-                  <strong>Count</strong>
-                </Typography>
-              </Grid>
-              <Grid item md={2}>
-                <Typography variant="subtitle1" component="p" align="center">
-                  <strong>Summary</strong>
-                </Typography>
-              </Grid>
-            </Grid>
-            <Divider className={classes.title}/>
-            <Fragment>
-            {[0, 1, 2, 3, 4, 5].map((product) =>
-             <div key={product}>{product}product</div>)}
-            </Fragment>
+    <Paper className={classes.paper}>
+      <Typography variant={"h6"}>
+        List of categories
+      </Typography>
+      {categories
+        ? <Fragment>
+          <Table className={classes.table}>
+            <TableHead>
+              <TableRow>
+                <TableCell>Name</TableCell>
+                <TableCell>ID category</TableCell>
+                <TableCell></TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {categories.map(category => (
+                <TableRow key={category.id}>
+                  <TableCell component="th" scope="row">
+                    {category.name}
+                  </TableCell>
+                  <TableCell>{category.id}</TableCell>
+                  <TableCell>
+                    <Button
+                      onClick={handleDelete.bind(this, category.id)}
+                      color="primary">
+                      delete
+                    </Button>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+          <div className={classes.buttons}>
+            <Button className={classes.button} variant="contained"
+                    color="primary" onClick={handleCreateCategory}>
+              Create category
+            </Button>
           </div>
         </Fragment>
+        : <CircularIndeterminate/>}
+    </Paper>
   );
 }
 
 export default compose(
-  withMobileDialog({breakpoint: 'sm'}),
+  withRouter,
+  withFirebase,
+  withFirestore,
+  firestoreConnect([
+    {collection: 'categories'}
+  ]),
   withStyles(styles),
-  // connect(mapStateToProps, mapDispatchToProps)
-)(CategoryList);
+  connect(mapStateToProps, mapDispatchToProps)
+)(ProductList);

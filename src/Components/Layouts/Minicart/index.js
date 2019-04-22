@@ -46,7 +46,7 @@ function Minicart({ classes,
         }} onClick={handleCurrentProduct}>
           <CardMedia
             className={classes.media}
-            image={product.img.first}
+            image={product.img[0]}
             title={product.name}
           />
           <Typography variant="h6" component="p">

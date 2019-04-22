@@ -1,44 +1,37 @@
-import React from 'react';
+import React, {useState} from 'react';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import Button from "@material-ui/core/Button";
 import Paper from "@material-ui/core/Paper";
+import { styles } from './style';
+import {firebaseConnect, withFirestore} from "react-redux-firebase";
+import {connect} from "react-redux";
+import { mapDispatchToProps } from "./redux";
+import { compose } from "redux";
+import { withRouter } from "react-router-dom";
 
-const styles = theme => ({
-  layout: {
-    width: 'auto',
-    marginLeft: theme.spacing.unit * 2,
-    marginRight: theme.spacing.unit * 2,
-    [theme.breakpoints.up(600 + theme.spacing.unit * 2 * 2)]: {
-      width: 600,
-      marginLeft: 'auto',
-      marginRight: 'auto',
-    },
-  },
-  paper: {
-    marginTop: theme.spacing.unit * 3,
-    marginBottom: theme.spacing.unit * 3,
-    padding: theme.spacing.unit * 2,
-    [theme.breakpoints.up(600 + theme.spacing.unit * 3 * 2)]: {
-      marginTop: theme.spacing.unit * 6,
-      marginBottom: theme.spacing.unit * 6,
-      padding: theme.spacing.unit * 3,
-    },
-  },
-  buttons: {
-    width: '100%',
-    display: 'flex',
-    justifyContent: 'flex-end',
-  },
-  button: {
-    marginTop: theme.spacing.unit * 3,
-    marginLeft: theme.spacing.unit,
-  },
-});
+function CategoryCreate({classes, createCategory, history}) {
+  const initState = {
+    name: '',
+  };
 
-function CategoryCreate({classes}) {
+  const [categoryCreate, setCategoryCreate] = useState(initState);
+
+  const handleChangeInput = e => {
+    const target = e.target;
+    setCategoryCreate({
+      [target.id]: target.value
+    });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    createCategory(categoryCreate);
+    history.push("/dashboard/categories/list");
+  };
+
   return (
     <React.Fragment>
       <main className={classes.layout}>
@@ -46,36 +39,37 @@ function CategoryCreate({classes}) {
       <Typography variant="h6" gutterBottom>
         Create category/subcategory
       </Typography>
+        <form className={classes.container} onSubmit={handleSubmit}>
       <Grid container spacing={24}>
         <Grid item xs={12}>
           <TextField
             required
-            id="category"
-            name="category"
-            label="Category"
+            id="name"
+            name="name"
+            label="Name"
             fullWidth
-          />
-        </Grid>
-        <Grid item xs={12}>
-          <TextField
-            required
-            id="subcategory"
-            name="subcategory"
-            label="Subcategory"
-            fullWidth
+            onChange={handleChangeInput}
           />
         </Grid>
         <div className={classes.buttons}>
           <Button className={classes.button} variant="contained"
-                  color="primary">
+                  color="primary" type="submit">
             Create category
           </Button>
         </div>
       </Grid>
+        </form>
       </Paper>
       </main>
     </React.Fragment>
   );
 }
 
-export default withStyles(styles)(CategoryCreate);
+export default compose(
+  withRouter,
+  firebaseConnect(),
+  withFirestore,
+  withStyles(styles),
+  connect(null, mapDispatchToProps)
+)(CategoryCreate);
+

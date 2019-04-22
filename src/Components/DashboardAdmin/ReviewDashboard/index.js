@@ -65,8 +65,7 @@ function ReviewDashboard({ reviews,
                   {review.negative}
                 </TableCell>
                 <TableCell>
-                  {review.username}
-                  {review.email}
+                  {`${review.username} ${review.email}`}
                 </TableCell>
                 <TableCell>
                   {+review.rate + 1}

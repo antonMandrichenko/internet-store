@@ -13,7 +13,7 @@ import Menu from '../Menu';
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 import Login from "../Login";
 import Logout from "../Logout";
-import { NavLink } from "react-router-dom";
+import {NavLink, withRouter} from "react-router-dom";
 import { withFirebase } from "react-redux-firebase";
 import MobileMenuDrawer from "../MobileMenuDrawer";
 import Link from "@material-ui/core/Link";
@@ -21,7 +21,7 @@ import DashboardButton from "../DashboardButton";
 import { styles } from "./style";
 import { mapStateToProps, mapDispatchToProps } from "./redux";
 
-function Header({classes, signOutSubmit, auth}) {
+function Header({classes, signOutSubmit, auth, noCurrentCategory, history}) {
 
   const [isOpenMenu, setIsOpenMenu] = useState(false);
 
@@ -31,6 +31,10 @@ function Header({classes, signOutSubmit, auth}) {
 
   const handleOut = () => {
     console.log('signout')
+  };
+
+  const handleChange = () => {
+    noCurrentCategory();
   };
 
   return (
@@ -43,7 +47,7 @@ function Header({classes, signOutSubmit, auth}) {
           <MobileMenuDrawer isOpenMenu={isOpenMenu} handleOpenMenu={handleOpenMenu}/>
           <Grid container>
             <Grid item lg={1} className={classes.menuTitle}>
-              <Link  color="textPrimary" underline="none" component={NavLink} to="/">
+              <Link  color="textPrimary" underline="none" component={NavLink} to="/" onClick={handleChange}>
                 <Typography variant="h6" color="inherit">
                   News
                 </Typography>
@@ -53,7 +57,7 @@ function Header({classes, signOutSubmit, auth}) {
               <Menu/>
             </Grid>
             <Grid item lg={3} xs={4} md={3} className={classes.menuButton}>
-              <Link  color="textPrimary" underline="none" component={NavLink} to="/shopcart">
+              <Link  color="textPrimary" underline="none" component={NavLink} to="/shopcart" >
                 <Button color="inherit" className={classes.cart}>
                   Cart
                   <AddShoppingCartIcon/>
@@ -81,6 +85,7 @@ function Header({classes, signOutSubmit, auth}) {
 }
 
 export default compose(
+  withRouter,
   withFirebase,
   withStyles(styles),
   connect(mapStateToProps, mapDispatchToProps)

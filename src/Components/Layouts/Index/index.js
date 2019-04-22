@@ -12,15 +12,18 @@ import { styles } from "./style";
 import { compose } from "redux";
 import { connect } from "react-redux";
 import { mapDispatchToProps } from "./redux";
+import {routes} from "./routsLayouts";
+import {Route, Switch, withRouter} from "react-router-dom";
 
 Layouts.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-function Layouts({classes, noCurrentProduct}) {
+function Layouts({classes, noCurrentProduct, history, noCurrentCategory}) {
 
   useEffect(() => {
     noCurrentProduct();
+    // noCurrentCategory();
   },[]);
 
   return (
@@ -32,9 +35,16 @@ function Layouts({classes, noCurrentProduct}) {
           <PersonalData/>
         </Grid>
         <Grid item md={10} sm={12}>
-          <SwiperRow/>
-          <ListOfProducts/>
-          <Pagination/>
+          <Switch>
+            {routes.map((route, index) => (
+              <Route
+                key={index}
+                path={route.path}
+                exact={route.exact}
+                component={route.main}
+              />
+            ))}
+          </Switch>
         </Grid>
       </Grid>
     </Fragment>
@@ -42,6 +52,7 @@ function Layouts({classes, noCurrentProduct}) {
 }
 
 export default compose(
+  withRouter,
   withStyles(styles),
   connect(null, mapDispatchToProps)
 )(Layouts);
