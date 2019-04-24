@@ -5,11 +5,11 @@ import moment from 'moment';
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
-import StarRates from "../../../Components/CardProduct/StarsRate";
 import Button from "@material-ui/core/Button";
 import ReplayIcon from '@material-ui/icons/Replay';
 import ReviewForReview from "../ReviewForReview";
 import AddReviewForReview from "../AddReviewForReview";
+import StarRates from "../../CardProduct/StarsRate";
 import { styles } from "./style";
 
 RewiewInCard.propTypes = {

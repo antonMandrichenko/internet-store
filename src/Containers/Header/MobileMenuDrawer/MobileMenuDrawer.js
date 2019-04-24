@@ -1,0 +1,86 @@
+import React, { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
+import { firestoreConnect } from "react-redux-firebase";
+import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
+import { compose } from "redux";
+import Drawer from "@material-ui/core/Drawer";
+import List from "@material-ui/core/List";
+import ListItem from "@material-ui/core/ListItem";
+import ListItemText from "@material-ui/core/ListItemText";
+import { mapStateToProps, mapDispatchToProps } from "./redux";
+import { sortArray } from '../../../logic/sortArray';
+import CircularIndeterminate from "../../../Components/Circular";
+import Logo from "../../../Components/Logo";
+import { styles } from './style';
+
+MobileMenuDrawer.propTypes = {
+  handleOpenMenu: PropTypes.func.isRequired,
+  isOpenMenu: PropTypes.bool.isRequired,
+  categories: PropTypes.any,
+  history: PropTypes.object.isRequired,
+  classes: PropTypes.object.isRequired,
+  getCurrentCategory: PropTypes.func.isRequired,
+};
+
+function MobileMenuDrawer({ handleOpenMenu,
+                            isOpenMenu,
+                            categories,
+                            history,
+                            getCurrentCategory,
+                            classes
+}) {
+
+  const [sortCategories, setSortCategories] = useState([]);
+
+  const handleLink = (e) => {
+    getCurrentCategory(e.target.innerHTML);
+    history.push(`/${e.target.innerHTML}/products`);
+  };
+
+  useEffect(() => {
+    setSortCategories(categories ? categories.sort(sortArray) : sortCategories)
+  }, [categories]);
+
+  const sideList = (
+    <div>
+      <List>
+        { categories
+          ? sortCategories.map((item) =>
+            <ListItem button key={item.id} onClick={handleLink}>
+              <ListItemText
+                primary={item.name}
+              />
+            </ListItem>
+          )
+          : <CircularIndeterminate/>
+        }
+      </List>
+    </div>
+  );
+  return (
+    <Drawer open={isOpenMenu} onClose={handleOpenMenu}>
+      <div
+        tabIndex={0}
+        role="button"
+        onClick={handleOpenMenu}
+        onKeyDown={handleOpenMenu}
+        className={classes.root}
+      >
+        <Logo/>
+        {sideList}
+      </div>
+    </Drawer>
+  );
+}
+
+export default compose(
+  withRouter,
+  firestoreConnect([
+    {collection: 'categories'}
+  ]),
+  withStyles(styles),
+  connect(mapStateToProps, mapDispatchToProps)
+)(MobileMenuDrawer);
+

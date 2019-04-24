@@ -16,7 +16,6 @@ export default (state = initialState, action) => {
     case 'DELETE_REVIEW_ERROR':
       return state;
     case 'CHANGE_RATE':
-      console.log('error', action.err);
       return state;
     default:
       return state;

@@ -21,7 +21,9 @@ export const createProduct = (props, dispatch, files, product) => {
     const filesArr = Array.from(files);
     let uploadFiles;
     filesArr.forEach(file => {
-      uploadFiles = props.firebase.storage().ref().child(`${product.name}/` + file.name).put(file, metadata)
+      uploadFiles = props.firebase.storage().ref().child(
+        `${product.name}/` + file.name)
+        .put(file, metadata)
         .then(() => {
           props.firebase.storage().ref(`${product.name}/` + file.name).getDownloadURL()
             .then(function (downloadURL) {
@@ -148,4 +150,3 @@ export const getCurrentCategory = category => ({
 export const noCurrentCategory = () => ({
   type: 'NO_CURRENT_CATEGORY'
 });
-

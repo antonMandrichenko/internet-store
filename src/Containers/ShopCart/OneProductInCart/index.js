@@ -58,7 +58,7 @@ function OneProductInCart({ classes,
             <strong>{product.name}</strong>
           </Typography>
           <Typography
-            variant="p"
+            variant="body1"
             component="p">
             {product.description.slice(0, 60).concat('...')}
           </Typography>

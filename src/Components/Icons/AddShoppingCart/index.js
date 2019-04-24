@@ -1,8 +1,19 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
+import PropTypes from "prop-types";
+import { withStyles } from '@material-ui/core/styles';
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
-import IconButton from "@material-ui/core/IconButton";
+import Button from "@material-ui/core/Button";
+import { styles } from './style';
 
-function AddShoppingCart({large, handleToOrFromCart, product, isInCart}) {
+AddShoppingCart.propTypes = {
+  large: PropTypes.string,
+  handleToOrFromCart: PropTypes.func,
+  product: PropTypes.object,
+  isInCart: PropTypes.bool,
+  classes: PropTypes.object.isRequired,
+};
+
+function AddShoppingCart({large, handleToOrFromCart, product, isInCart, classes}) {
 
   const [isClickAble, setIsClick] = useState(isInCart);
 
@@ -12,13 +23,20 @@ function AddShoppingCart({large, handleToOrFromCart, product, isInCart}) {
   };
 
   return (
-    <IconButton aria-label="Add to cart" onClick={changeHandle}>
+    <div aria-label="Add to cart" onClick={changeHandle} className={classes.root}>
       {isClickAble
-        ? <AddShoppingCartIcon color="primary" fontSize={large}/>
-        : <AddShoppingCartIcon fontSize={large}/>
+        ? <Button variant="outlined"
+                  color="primary">
+          <AddShoppingCartIcon color="primary" fontSize={large}/>
+          Remove from cart
+      </Button>
+        : <Button variant="outlined">
+          <AddShoppingCartIcon fontSize={large}/>
+          Add to cart
+        </Button>
       }
-    </IconButton>
+    </div>
   );
 }
 
-export default AddShoppingCart;
+export default withStyles(styles)(AddShoppingCart);

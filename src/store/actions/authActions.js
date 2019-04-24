@@ -19,6 +19,12 @@ export const signOut = ( dispatch, props) => {
   }
 };
 
+export const getCurrentUser = (users, id) => ({
+  type: 'GET_CURRENT_USER',
+  users,
+  id
+});
+
 export const register = (props, dispatch, newUser) => {
   return () => {
     props.firebase.auth().createUserWithEmailAndPassword(
@@ -28,12 +34,37 @@ export const register = (props, dispatch, newUser) => {
       return props.firestore.collection('users').doc(resp.user.uid).set({
         firstName: newUser.firstName,
         secondName: newUser.secondName,
-        initials: newUser.firstName[0] + newUser.secondName[0]
+        initials: newUser.firstName[0] + newUser.secondName[0],
+        email: newUser.email,
+        shippingAdress: {},
+        payment: {}
       })
     }).then(() => {
       dispatch({ type: 'SIGNUP_SUCCESS'});
     }).catch((err) => {
       dispatch({ type: 'SIGNOUT_ERROR', err});
     })
+  }
+};
+
+export const updateUser = (props,dispatch, user, id) => {
+  return () => {
+    props.firestore.collection('users').doc(id).update({
+      ...user
+    })
+      .then(() => {
+        console.log("Product is updated");
+        dispatch({
+          type: 'UPDATE_USER',
+          user
+        });
+      })
+      .catch(err => {
+        console.error("Error updating review: ", err);
+        dispatch({
+          type: 'UPDATE_USER_ERROR',
+          err
+        });
+      });
   }
 };

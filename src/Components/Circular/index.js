@@ -6,12 +6,16 @@ import { styles } from './style';
 
 CircularIndeterminate.propTypes = {
   classes: PropTypes.object.isRequired,
+  size: PropTypes.string,
+  color: PropTypes.string,
 };
 
-function CircularIndeterminate({classes}) {
+function CircularIndeterminate({classes, size, color}) {
   return (
     <div className={classes.root}>
-      <CircularProgress className={classes.progress} />
+      <CircularProgress
+        color={!size && !color ? 'primary' : 'secondary'}
+        className={!size && !color ? classes.progress : classes.progressSmall} />
     </div>
   );
 }

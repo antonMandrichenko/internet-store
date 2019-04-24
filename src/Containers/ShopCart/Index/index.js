@@ -1,20 +1,21 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
+import { compose } from "redux";
+import { connect } from "react-redux";
+import {withFirebase} from "react-redux-firebase";
+import {withRouter} from "react-router-dom";
 import { withStyles } from '@material-ui/core/styles';
 import withMobileDialog from '@material-ui/core/withMobileDialog';
 import DialogTitle from "@material-ui/core/DialogTitle";
-import DialogContent from "@material-ui/core/DialogContent";
 import DialogActions from "@material-ui/core/DialogActions";
 import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import OneProductInCart from "../OneProductInCart";
+import Paper from "@material-ui/core/Paper";
 import Divider from "@material-ui/core/Divider";
-import { compose } from "redux";
-import { connect } from "react-redux";
 import { styles } from "./style";
 import { mapStateToProps, mapDispatchToProps } from "./redux";
-import Paper from "@material-ui/core/Paper";
 
 ShopCart.propTypes = {
   classes: PropTypes.object.isRequired,
@@ -39,7 +40,8 @@ function ShopCart({ classes,
                     reduceAmount,
                     amountOfProduct,
                     totalAmount,
-                    summary
+                    summary,
+                    auth,
 }) {
 
   const handleRedirect = () => {
@@ -55,6 +57,10 @@ function ShopCart({ classes,
     totalAmount()
   };
 
+  const handleLink = () => {
+    history.push("/signin")
+  };
+
   return (
     <Fragment>
     { cart.length !== 0
@@ -62,7 +68,6 @@ function ShopCart({ classes,
           <div className={classes.grid}>
             <DialogTitle id="responsive-dialog-title">{"Shop cart"}</DialogTitle>
             <Divider/>
-            {/*<DialogContent>*/}
               <Grid container className={classes.title}>
                 <Grid item md={2}>
                   <Typography variant="subtitle1" component="p" align="center">
@@ -112,19 +117,37 @@ function ShopCart({ classes,
                 color="primary">
                 To the shop
               </Button>
-              <Button
-                onClick={handleCheckout}
-                variant="contained"
-                color="primary"
-                autoFocus>
-                Checkout
-              </Button>
+              {
+                auth.uid
+                  ? <Button
+                    onClick={handleCheckout}
+                    variant="contained"
+                    color="primary"
+                    autoFocus>
+                    Checkout
+                  </Button>
+                  :<Button
+                    onClick={handleLink}
+                    variant="contained"
+                    color="primary"
+                    autoFocus>
+                    Please, log in
+                  </Button>
+
+              }
+
             </DialogActions>
           </div>
         </Fragment>
 
         : <Paper className={classes.grid}>
-            <DialogTitle id="responsive-dialog-title">{"No product in cart"}</DialogTitle>
+            <Typography variant="h5">{"No product in cart"}</Typography>
+        <Button
+          onClick={handleRedirect}
+          variant="contained"
+          color="primary">
+          To the shop
+        </Button>
           </Paper>
     }
     </Fragment>
@@ -132,6 +155,8 @@ function ShopCart({ classes,
 }
 
 export default compose(
+  withRouter,
+  withFirebase,
   withMobileDialog({breakpoint: 'sm'}),
   withStyles(styles),
   connect(mapStateToProps, mapDispatchToProps)

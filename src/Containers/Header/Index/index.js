@@ -1,27 +1,52 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import PropTypes from "prop-types";
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { withStyles } from '@material-ui/core/styles';
+import { withRouter } from "react-router-dom";
+import { firestoreConnect, withFirebase } from "react-redux-firebase";
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import Grid from '@material-ui/core/Grid';
 import Menu from '../Menu';
-import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 import Login from "../Login";
 import Logout from "../Logout";
-import {NavLink, withRouter} from "react-router-dom";
-import { withFirebase } from "react-redux-firebase";
-import MobileMenuDrawer from "../MobileMenuDrawer";
-import Link from "@material-ui/core/Link";
-import DashboardButton from "../DashboardButton";
+import MobileMenuDrawer from "../MobileMenuDrawer/MobileMenuDrawer";
+import CartIcon from "../../../Components/Icons/CartIcon";
+import DashboardButton from "../DashboardButton/DashboardButton";
 import { styles } from "./style";
 import { mapStateToProps, mapDispatchToProps } from "./redux";
+import CircularIndeterminate from "../../../Components/Circular";
+import Logo from "../../../Components/Logo";
 
-function Header({classes, signOutSubmit, auth, noCurrentCategory, history}) {
+DashboardButton.propTypes = {
+  signOutSubmit: PropTypes.func,
+  classes: PropTypes.object.isRequired,
+  auth: PropTypes.any,
+  noCurrentCategory: PropTypes.func.isRequired,
+  history: PropTypes.object.isRequired,
+  users: PropTypes.any.isRequired,
+  productsInCart: PropTypes.array.isRequired,
+};
+
+function Header({ classes,
+                  signOutSubmit,
+                  auth,
+                  noCurrentCategory,
+                  history,
+                  users,
+                  productsInCart
+}) {
+
+  const [user, setUser] = useState({initials: 'IS'});
+
+  useEffect(() => {
+    if(auth && users) {
+      setUser(users.filter((user) => user.id === auth.uid)[0]);
+    }
+  }, [auth]);
 
   const [isOpenMenu, setIsOpenMenu] = useState(false);
 
@@ -29,8 +54,12 @@ function Header({classes, signOutSubmit, auth, noCurrentCategory, history}) {
     setIsOpenMenu(!isOpenMenu);
   };
 
-  const handleOut = () => {
-    console.log('signout')
+  const handleLink = (e) => {
+    if(e.target.innerHTML === 'Dashboard') {
+      history.push("/dashboard")
+    } else {
+      history.push("/shopcart")
+    }
   };
 
   const handleChange = () => {
@@ -39,40 +68,31 @@ function Header({classes, signOutSubmit, auth, noCurrentCategory, history}) {
 
   return (
     <div className={classes.root}>
+
       <AppBar position="static" color="primary" className={classes.appBar}>
         <Toolbar variant="dense" style={{}} className={classes.toolBar}>
           <IconButton color="inherit" aria-label="Menu" className={classes.mobileMenu} onClick={handleOpenMenu}>
-            <MenuIcon />
+            <MenuIcon/>
           </IconButton>
           <MobileMenuDrawer isOpenMenu={isOpenMenu} handleOpenMenu={handleOpenMenu}/>
           <Grid container>
             <Grid item lg={1} className={classes.menuTitle}>
-              <Link  color="textPrimary" underline="none" component={NavLink} to="/" onClick={handleChange}>
-                <Typography variant="h6" color="inherit">
-                  News
-                </Typography>
-              </Link>
+              <Logo handleChange={handleChange}/>
             </Grid>
             <Grid item lg={8} xs={8} md={9}>
               <Menu/>
             </Grid>
             <Grid item lg={3} xs={4} md={3} className={classes.menuButton}>
-              <Link  color="textPrimary" underline="none" component={NavLink} to="/shopcart" >
-                <Button color="inherit" className={classes.cart}>
-                  Cart
-                  <AddShoppingCartIcon/>
-                </Button>
-              </Link>
-              {
-                auth.uid
-                  ? <Logout signOutSubmit={signOutSubmit}/>
+              <CartIcon handleLink={handleLink} number={productsInCart.length}/>
+              {users
+                ? auth.uid
+                  ? <Logout signOutSubmit={signOutSubmit} user={user || {initials: 'IS'}}/>
                   : <Login/>
+                : <CircularIndeterminate size={'small'} color={'white'}/>
               }
               {
-                auth.uid === '32iPDzNJKgbmPSMmKA6XuUeSGhD3'
-                  ? <Link  color="textPrimary" underline="none" component={NavLink} to="/dashboard">
-                      <DashboardButton/>
-                    </Link>
+                auth.uid === 'jB5do8VhklX0qFsgDqy28p3eUOr1'
+                  ? <DashboardButton handleLink={handleLink}/>
                   : null
               }
             </Grid>
@@ -87,6 +107,9 @@ function Header({classes, signOutSubmit, auth, noCurrentCategory, history}) {
 export default compose(
   withRouter,
   withFirebase,
+  firestoreConnect([
+    {collection: 'users'}
+  ]),
   withStyles(styles),
   connect(mapStateToProps, mapDispatchToProps)
 )(Header);

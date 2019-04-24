@@ -1,4 +1,9 @@
-const initState = {currentProduct: {}, createProduct: {}, editProduct: {}, currentCategory: null};
+const initState = {
+  currentProduct: {},
+  createProduct: {},
+  editProduct: {},
+  currentCategory: null
+};
 
 export default (store=initState, action) => {
   switch(action.type) {

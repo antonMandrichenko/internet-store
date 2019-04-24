@@ -8,6 +8,7 @@ export const styles = theme => ({
     }
   },
   avatar: {
+    backgroundColor: '#42a5f5',
     margin: 10,
     width: 30,
     height: 30,

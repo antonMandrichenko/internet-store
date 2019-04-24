@@ -3,7 +3,9 @@ import {noCurrentCategory} from "../../../store/actions/productsActions";
 
 export const mapStateToProps = state => {
   return {
-    auth: state.firebase.auth
+    auth: state.firebase.auth,
+    users: state.firestore.ordered.users,
+    productsInCart: state.cart.productsInCart,
   }
 };
 

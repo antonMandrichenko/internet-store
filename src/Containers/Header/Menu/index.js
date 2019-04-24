@@ -3,34 +3,32 @@ import PropTypes from "prop-types";
 import { withStyles } from '@material-ui/core/styles';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
-import { NavLink } from "react-router-dom";
-import Link from "@material-ui/core/Link";
+import { withRouter } from "react-router-dom";
 import { styles } from "./style";
 
 
 Menu.propTypes = {
-  classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
+  history: PropTypes.object.isRequired
 };
 
-function Menu({classes}) {
+function Menu({classes, history}) {
 
-  const [value, setValue] = useState('one');
+  const [value, setValue] = useState(0);
 
-  const handleChange = (event, value) => {
-    setValue(value);
+  const handleChange = (e, value) => {
+   history.push('/aboutus');
+    setValue(value)
   };
 
   return (
-    <Tabs value={value} onChange = {handleChange} textColor="primary" className={classes.menu}>
-      <Tab value="one" label="Goods" className={classes.goodsButton}/>
-      <Link  color="textPrimary" underline="none" component={ NavLink } to="/aboutus">
-        <Tab value="two" label="About us" />
-      </Link>
-      <Link  color="textPrimary" underline="none" component={ NavLink } to="/forcostumers">
-        <Tab value="three" label="For customers" />
-      </Link>
+    <Tabs value={value} className={classes.menu} onClick={handleChange}>
+        <Tab
+          value={0}
+          label="About us"
+        />
     </Tabs>
   );
 }
 
-export default withStyles(styles)(Menu);
+export default withStyles(styles)(withRouter(Menu));

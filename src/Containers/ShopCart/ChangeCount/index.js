@@ -43,7 +43,11 @@ function ChangeCount({ classes,
   return (
     <Grid container justify="center" alignItems="center">
       <div className={classes.changeInput}>
-        <ChangeCountComp handleChangeCount={handleChangeCount} id={product.id} product={product}/>
+        <ChangeCountComp
+          handleChangeCount={handleChangeCount}
+          id={product.id}
+          product={product}
+        />
       </div>
       <div className={classes.showCountButton}>
         <IconButton size="small" onClick={handleClose}>

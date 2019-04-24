@@ -39,7 +39,6 @@ function AddReviewForReview({ classes,
   const [reviewCreate, setReviewCreate] = useState(initState);
 
   const handleChange = e => {
-    console.log(reviewCreate);
     setReviewCreate({
       ...reviewCreate,
       [e.target.id]: e.target.value

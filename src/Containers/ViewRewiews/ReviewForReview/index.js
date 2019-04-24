@@ -9,6 +9,9 @@ import { styles } from "./style";
 
 ReviewForReview.propTypes = {
   classes: PropTypes.object.isRequired,
+  description: PropTypes.string.isRequired,
+  username: PropTypes.string.isRequired,
+  date: PropTypes.any,
 };
 
 function ReviewForReview({classes, description, username, date}) {

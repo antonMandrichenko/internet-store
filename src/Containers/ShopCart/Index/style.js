@@ -7,7 +7,11 @@ export const styles = theme => ({
   grid: {
     width: '70%',
     margin: '0 auto',
-    paddingBottom: '.5rem',
+    padding: '.5rem',
+    display: 'flex',
+    justifyContent: 'center',
+    flexDirection: 'column',
+    alignItems: 'center',
     [theme.breakpoints.down('md')]: {
       width: '100%',
       padding: '0 .5rem',

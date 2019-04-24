@@ -1,4 +1,4 @@
-import {combineReducers} from 'redux';
+import { combineReducers } from 'redux';
 import ProductsReducer from './ProductsReducer';
 import ReviewsReducer from './ReviewsReducer';
 import { firestoreReducer } from 'redux-firestore';

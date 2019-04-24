@@ -1,4 +1,4 @@
-import {addToCart, deleteFromCart, handleToOrFromCart } from "../../store/actions/cartActions";
+import { handleToOrFromCart } from "../../store/actions/cartActions";
 
 export const mapStateToProps = state => {
   return {

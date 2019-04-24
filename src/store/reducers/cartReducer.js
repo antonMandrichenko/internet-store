@@ -1,4 +1,8 @@
-const initState = {totalAmount: null, productsInCart: [], isInCart: false};
+const initState = {
+  totalAmount: null,
+  productsInCart: [],
+  isInCart: false
+};
 
 export default (store=initState, action) => {
   switch(action.type) {
@@ -52,7 +56,7 @@ export default (store=initState, action) => {
           if(action.id === product.id) {
             return {
               ...product,
-              amountCost: product.amount * product.price
+              amountCost: (product.amount * product.price)
             }
           } else {
             return product
@@ -64,7 +68,22 @@ export default (store=initState, action) => {
         ...store,
         totalAmount: store.productsInCart.reduce((amount, product) =>
           amount + product.amountCost
-        , 0)
+        , 0).toFixed(2)
+      };
+    case 'CREATE_ORDER':
+      console.log('order created', action.products);
+      return {
+        ...store,
+      };
+    case 'CREATE_ORDER_ERROR':
+      console.log('order created error', action.err);
+      return {
+        ...store,
+      };
+    case 'CLEAR_CART':
+      console.log('cart is cleared');
+      return {
+        ...initState,
       };
     default:
       return store;

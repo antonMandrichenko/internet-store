@@ -1,18 +1,18 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
+import { withFirestore } from "react-redux-firebase";
 import { compose } from 'redux';
 import { connect } from 'react-redux'
 import TextField from "@material-ui/core/TextField";
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
-import StarRates from "../../../Components/CardProduct/StarsRate";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
+import StarRates from "../../CardProduct/StarsRate";
 import { styles } from "./style";
 import { mapStateToProps, mapDispatchToProps } from "./redux";
-import { withFirestore } from "react-redux-firebase";
 
 AddReview.propTypes = {
   classes: PropTypes.object.isRequired,
@@ -20,21 +20,23 @@ AddReview.propTypes = {
   handleOpenDialog: PropTypes.func.isRequired,
   createReview: PropTypes.func.isRequired,
   product: PropTypes.object.isRequired,
+  currentUser: PropTypes.object.isRequired,
 };
 
 function AddReview({ classes,
                      isOpenDialog,
                      handleOpenDialog,
                      createReview,
-                     product
+                     product,
+                     currentUser
 }) {
 
   const initState = {
     positive: '',
     negative: '',
     description: '',
-    username: '',
-    email: '',
+    username: `${currentUser.firstName} ${currentUser.secondName}` || '',
+    email: currentUser.email || '',
     rate: '',
     idProduct: product.id
   };
@@ -134,6 +136,7 @@ function AddReview({ classes,
                 name="username"
                 id="username"
                 className={classes.textField}
+                defaultValue={`${currentUser.firstName} ${currentUser.secondName}` || ''}
                 onChange={handleChange}
                 fullWidth
               />
@@ -145,6 +148,7 @@ function AddReview({ classes,
                 name="email"
                 autoComplete="email"
                 onChange={handleChange}
+                defaultValue={currentUser.email || ''}
                 fullWidth
               />
               <Button

@@ -5,17 +5,17 @@ import Button from "@material-ui/core/Button";
 import Avatar from "@material-ui/core/Avatar";
 import { styles } from "./style";
 
-
 Logout.propTypes = {
   signOutSubmit: PropTypes.func.isRequired,
-  classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
+  user: PropTypes.object.isRequired,
 };
 
-function Logout({signOutSubmit, classes}) {
+function Logout({signOutSubmit, classes, user}) {
   return (
     <div className={classes.root}>
       <Button color="inherit" onClick={signOutSubmit}>Logout</Button>
-      <Avatar alt="Remy Sharp" src="./products/img/avatar.jpg" className={classes.avatar}/>
+      <Avatar alt="Remy Sharp" children={user.initials.toUpperCase()}  className={classes.avatar} size={40}/>
     </div>
   );
 }

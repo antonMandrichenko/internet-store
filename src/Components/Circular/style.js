@@ -7,4 +7,7 @@ export const styles = theme => ({
   progress: {
     margin: theme.spacing.unit * 2,
   },
+  progressSmall: {
+    width: 40
+  }
 });

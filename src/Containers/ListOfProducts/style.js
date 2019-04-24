@@ -4,5 +4,8 @@ export const styles = () => ({
     padding: 0,
     marginBottom: '.5rem'
   },
+  pagination: {
+    display: 'flex',
 
+  }
 });

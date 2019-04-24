@@ -9,7 +9,7 @@ import ChangeCountComp from "./ChangeCountComp";
 MobileChangeCount.propTypes = {
   isOpenDialog: PropTypes.bool.isRequired,
   handleClose: PropTypes.func.isRequired,
-  id: PropTypes.number.isRequired,
+  id: PropTypes.string.isRequired,
   handleChangeCount: PropTypes.func.isRequired,
   product: PropTypes.object.isRequired,
 };

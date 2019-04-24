@@ -1,5 +1,6 @@
 const initState = {
-  authError: null
+  authError: null,
+  currentUser: {},
 };
 
 const authReducer = (state = initState, action) => {
@@ -18,7 +19,10 @@ const authReducer = (state = initState, action) => {
       };
     case 'SIGNOUT_SUCCESS':
       console.log('signout success');
-      return state;
+      return {
+        ...state,
+        currentUser: {},
+      };
     case 'SIGNUP_SUCCESS':
       console.log('signup success');
       return {
@@ -30,6 +34,25 @@ const authReducer = (state = initState, action) => {
       return {
         ...state,
         authError: action.err.message
+      };
+    case 'UPDATE_USER':
+      console.log('user update', action.user);
+      return {
+        ...state,
+        authError: null
+      };
+    case 'UPDATE_USER_ERROR':
+      console.log('Error user update', action.err);
+      return {
+        ...state,
+        authError: action.err
+      };
+    case 'GET_CURRENT_USER':
+      const currentUser = action.users.filter((user) => user.id === action.id)[0];
+      return {
+        ...state,
+        authError: null,
+        currentUser: currentUser || {},
       };
     default:
       return state;

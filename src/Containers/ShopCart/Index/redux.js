@@ -9,7 +9,8 @@ import {
 export const mapStateToProps = state => {
   return {
     cart: state.cart.productsInCart,
-    summary: state.cart.totalAmount
+    summary: state.cart.totalAmount,
+    auth: state.firebase.auth,
   }
 };
 

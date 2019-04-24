@@ -10,7 +10,7 @@ import { styles } from "./style";
 
 ChangeCountComp.propTypes = {
   handleChangeCount: PropTypes.func.isRequired,
-  id: PropTypes.number.isRequired,
+  id: PropTypes.string.isRequired,
   classes: PropTypes.object.isRequired,
   product: PropTypes.object.isRequired,
 };
