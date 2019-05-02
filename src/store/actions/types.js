@@ -7,6 +7,7 @@ export const SIGNUP_SUCCESS = 'SIGNUP_SUCCESS';
 export const SIGNUP_ERROR = 'SIGNUP_ERROR';
 export const UPDATE_USER = 'UPDATE_USER';
 export const UPDATE_USER_ERROR = 'UPDATE_USER_ERROR';
+export const CLEAR_SUCCESS = 'CLEAR_SUCCESS';
 
 //cartTypes
 export const ADD_TO_CART = 'ADD_TO_CART';

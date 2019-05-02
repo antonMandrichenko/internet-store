@@ -19,6 +19,7 @@ import {styles} from './style';
 import {mapDispatchToProps, mapStateToProps} from "./redux";
 import CircularIndeterminate from "../../../components/Circular";
 import withError from "../../../hoc/withError";
+import withSuccess from "../../../hoc/withSuccess";
 
 const steps = ['Shipping address', 'Payment details', 'Review your order'];
 
@@ -28,7 +29,8 @@ class Checkout extends React.Component {
     activeStep: 0,
     userData: {
       ...this.props.currentUser
-    }
+    },
+    isChange: false,
   };
 
   getStepContent = (step) => {
@@ -86,7 +88,8 @@ class Checkout extends React.Component {
             ...this.state.userData.shippingAdress,
             [e.target.id]: e.target.value
           }
-        }
+        },
+        isChange: true,
       });
     } else {
       this.setState({
@@ -96,12 +99,14 @@ class Checkout extends React.Component {
             ...this.state.userData.payment,
             [e.target.id]: e.target.value
           }
-        }
+        },
+        isChange: true,
       });
     }
   };
 
   handleSubmit = () => {
+    if(this.state.isChange)
     this.props.updateUser(this.state.userData, this.props.auth.uid);
     this.props.createOrder(
       this.props.auth.uid,
@@ -141,42 +146,42 @@ class Checkout extends React.Component {
                   <Fragment>
                     {activeStep === steps.length
                       ? (
-                        isLoading
-                          ? <CircularIndeterminate/>
-                          : <Fragment>
-                            <Typography variant="h5" gutterBottom>
-                              Thank you for your order.
-                            </Typography>
-                            <Typography variant="subtitle1">
-                              Your order number is #{this.props.orders.length}. We have emailed your order confirmation, and
-                              will
-                              send you an update when your order has shipped.
-                            </Typography>
-                          </Fragment>
-                      )
+                          isLoading
+                            ? <CircularIndeterminate/>
+                            : <Fragment>
+                                <Typography variant="h5" gutterBottom>
+                                  Thank you for your order.
+                                </Typography>
+                                <Typography variant="subtitle1">
+                                  Your order number is #{this.props.orders.length}. We have emailed your order confirmation, and
+                                  will
+                                  send you an update when your order has shipped.
+                                </Typography>
+                              </Fragment>
+                        )
                       : (
-                        <Fragment>
-                          {this.getStepContent(activeStep)}
-                          <div className={classes.buttons}>
-                            {activeStep !== 0 && (
+                          <Fragment>
+                            {this.getStepContent(activeStep)}
+                            <div className={classes.buttons}>
+                              {activeStep !== 0 && (
+                                <Button
+                                  onClick={this.handleBack}
+                                  className={classes.button}>
+                                  Back
+                                </Button>
+                              )}
                               <Button
-                                onClick={this.handleBack}
-                                className={classes.button}>
-                                Back
+                                variant="contained"
+                                color="primary"
+                                onClick={this.handleNext}
+                                className={classes.button}
+                              >
+                                {activeStep === steps.length - 1
+                                  ? 'Place order'
+                                  : 'Next'}
                               </Button>
-                            )}
-                            <Button
-                              variant="contained"
-                              color="primary"
-                              onClick={this.handleNext}
-                              className={classes.button}
-                            >
-                              {activeStep === steps.length - 1
-                                ? 'Place order'
-                                : 'Next'}
-                            </Button>
-                          </div>
-                        </Fragment>
+                            </div>
+                          </Fragment>
                       )}
                   </Fragment>
                 </Fragment>
@@ -200,9 +205,10 @@ Checkout.propTypes = {
   createOrder: PropTypes.func,
   isLoading: PropTypes.bool,
   error: PropTypes.object,
+  success: PropTypes.object,
 };
 
-const WithErrorCheckout = withError(Checkout);
+const WithMessagesCheckout = withSuccess(withError(Checkout));
 
 export default compose(
   withRouter,
@@ -213,4 +219,4 @@ export default compose(
   ]),
   withStyles(styles),
   connect(mapStateToProps, mapDispatchToProps)
-)(WithErrorCheckout);
+)(WithMessagesCheckout);

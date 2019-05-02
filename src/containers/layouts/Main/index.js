@@ -10,6 +10,7 @@ import Grid from "@material-ui/core/Grid";
 import {mapDispatchToProps, mapStateToProps} from "./redux";
 import {routes} from "./routsLayouts";
 import Footer from "../../../components/layouts/Footer";
+import withSuccess from "../../../hoc/withSuccess";
 
 Layouts.propTypes = {
   classes: PropTypes.object.isRequired,
@@ -17,6 +18,7 @@ Layouts.propTypes = {
   auth: PropTypes.any,
   users: PropTypes.any,
   getCurrentUser: PropTypes.func.isRequired,
+  success: PropTypes.object,
 };
 
 function Layouts({
@@ -69,6 +71,8 @@ function Layouts({
   );
 }
 
+const WithMessagesLayouts = withSuccess(Layouts);
+
 export default compose(
   withFirebase,
   firestoreConnect([
@@ -76,4 +80,4 @@ export default compose(
   ]),
   withStyles(styles),
   connect(mapStateToProps, mapDispatchToProps)
-)(Layouts);
+)(WithMessagesLayouts);

@@ -57,7 +57,7 @@ function SignIn({
 
   if (auth.uid) {
     getCurrentUser(users, auth.uid);
-    return <Redirect to={'/'}/>
+    return <Redirect to={'/'}/>;
   }
 
   return (
@@ -120,7 +120,7 @@ function SignIn({
   );
 }
 
-const WithErrorSignIn = withError(SignIn);
+const MessagesSignIn = withError(SignIn);
 
 export default compose(
   withRouter,
@@ -130,4 +130,4 @@ export default compose(
   ]),
   withStyles(styles),
   connect(mapStateToProps, mapDispatchToProps)
-)(WithErrorSignIn);
+)(MessagesSignIn);

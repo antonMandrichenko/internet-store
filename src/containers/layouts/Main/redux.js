@@ -5,6 +5,7 @@ export const mapStateToProps = state => {
   return {
     auth: state.firebase.auth,
     users: state.firestore.ordered.users,
+    success: state.auth.success,
   }};
 
 export const mapDispatchToProps = dispatch => {

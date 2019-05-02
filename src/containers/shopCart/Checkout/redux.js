@@ -11,16 +11,17 @@ export const mapStateToProps = state => {
     isLoading: state.cart.isLoading,
     currentUser: state.auth.currentUser,
     error: state.cart.cartError,
+    success: state.auth.success,
   }
 };
 
 export const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    updateUser: (product, id) =>
+    updateUser: (user, id) =>
       dispatch(updateUser(
         ownProps,
         dispatch,
-        product,
+        user,
         id
       )),
     createOrder: (id, products, totalAmount, number) =>

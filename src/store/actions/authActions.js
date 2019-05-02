@@ -7,6 +7,7 @@ import {
   SIGNUP_ERROR,
   UPDATE_USER,
   UPDATE_USER_ERROR,
+  CLEAR_SUCCESS
 } from './types';
 
 export const signIn = (props, dispatch, data) => {
@@ -15,7 +16,10 @@ export const signIn = (props, dispatch, data) => {
       data.email,
       data.password
     ).then(() => {
-      dispatch({type: LOGIN_SUCCESS})
+      dispatch({type: LOGIN_SUCCESS});
+      setTimeout(() => {
+        dispatch({type: CLEAR_SUCCESS})
+      }, 6000)
     }).catch((err) => {
       dispatch({type: LOGIN_ERROR, err})
     })
@@ -26,6 +30,9 @@ export const signOut = (dispatch, props) => {
   return () => {
     props.firebase.auth().signOut().then(() => {
       dispatch({type: SIGNOUT_SUCCESS});
+      setTimeout(() => {
+        dispatch({type: CLEAR_SUCCESS})
+      }, 6000)
     })
   }
 };
@@ -52,6 +59,9 @@ export const register = (props, dispatch, newUser) => {
       })
     }).then(() => {
       dispatch({type: SIGNUP_SUCCESS});
+      setTimeout(() => {
+        dispatch({type: CLEAR_SUCCESS})
+      }, 6000)
     }).catch((err) => {
       dispatch({type: SIGNUP_ERROR, err});
     })
@@ -73,6 +83,9 @@ export const updateUser = (
           type: UPDATE_USER,
           user
         });
+        setTimeout(() => {
+          dispatch({type: CLEAR_SUCCESS})
+        }, 6000)
       })
       .catch(err => {
         dispatch({

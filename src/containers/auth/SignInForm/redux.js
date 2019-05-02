@@ -5,11 +5,14 @@ export const mapStateToProps = state => {
     error: state.auth.authError,
     auth: state.firebase.auth,
     users: state.firestore.ordered.users,
+
   }};
 
 export const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    signInSubmit: (data) => dispatch(signIn(ownProps, dispatch, data)),
-    getCurrentUser: (users, id) => dispatch(getCurrentUser(users, id))
+    signInSubmit: (data) =>
+      dispatch(signIn(ownProps, dispatch, data)),
+    getCurrentUser: (users, id) =>
+      dispatch(getCurrentUser(users, id))
   }
 };
