@@ -13,8 +13,8 @@ import firebase from 'firebase/app';
 import 'firebase/firestore';
 import 'firebase/auth';
 import 'firebase/storage';
-import App from './Components/App';
-import { firebaseConf, rrfConfig } from "./configFB";
+import App from './components/App';
+import { firebaseConf, rrfConfig } from "./config";
 
 firebase.initializeApp(firebaseConf);
 firebase.firestore();
