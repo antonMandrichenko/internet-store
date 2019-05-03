@@ -1,11 +1,11 @@
 {
-  "main.js": "/internet-store/static/js/main.3fc5ca35.chunk.js",
-  "main.js.map": "/internet-store/static/js/main.3fc5ca35.chunk.js.map",
+  "main.js": "/internet-store/static/js/main.0f0c695d.chunk.js",
+  "main.js.map": "/internet-store/static/js/main.0f0c695d.chunk.js.map",
   "runtime~main.js": "/internet-store/static/js/runtime~main.abd69102.js",
   "runtime~main.js.map": "/internet-store/static/js/runtime~main.abd69102.js.map",
-  "static/js/2.d7cf0ec8.chunk.js": "/internet-store/static/js/2.d7cf0ec8.chunk.js",
-  "static/js/2.d7cf0ec8.chunk.js.map": "/internet-store/static/js/2.d7cf0ec8.chunk.js.map",
+  "static/js/2.012aa503.chunk.js": "/internet-store/static/js/2.012aa503.chunk.js",
+  "static/js/2.012aa503.chunk.js.map": "/internet-store/static/js/2.012aa503.chunk.js.map",
   "index.html": "/internet-store/index.html",
-  "precache-manifest.e528913e0e3afd0163bb0a20ca6cc44b.js": "/internet-store/precache-manifest.e528913e0e3afd0163bb0a20ca6cc44b.js",
+  "precache-manifest.5cfaceeb5b0d77ac1b2a34245aee88f0.js": "/internet-store/precache-manifest.5cfaceeb5b0d77ac1b2a34245aee88f0.js",
   "service-worker.js": "/internet-store/service-worker.js"
 }
