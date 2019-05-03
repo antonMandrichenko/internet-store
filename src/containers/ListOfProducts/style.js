@@ -6,6 +6,10 @@ export const styles = () => ({
   },
   pagination: {
     display: 'flex',
-
+  },
+  wrapper: {
+    position: 'relative',
+    width: '100%',
+    height: '18rem',
   }
 });

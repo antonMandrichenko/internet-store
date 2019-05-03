@@ -10,7 +10,7 @@ import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
-import StarRates from "../../../components/cardProduct/StarsRate";
+import StarRates from "../../../components/StarsRate";
 import {styles} from "./style";
 import {mapStateToProps, mapDispatchToProps} from "./redux";
 import withError from "../../../hoc/withError";
@@ -77,13 +77,22 @@ function AddReview({
     setReviewCreate({
       ...reviewCreate,
       rate: event.currentTarget.dataset.count
-    })
+    });
+
   };
 
   const handleSubmit = e => {
     e.preventDefault();
     createReview(reviewCreate, product);
-    setReviewCreate(initState);
+    setReviewCreate({
+      ...initState,
+      username: `${currentUser.firstName} ${currentUser.secondName}` || '',
+      email: currentUser.email || '',
+      idProduct: product.id,
+    });
+    setTimeout(() => {
+      useRate(null);
+    }, 3000)
   };
 
   return (

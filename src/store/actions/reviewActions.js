@@ -20,18 +20,21 @@ const changeRateOfProduct = (
       .then((doc) => {
         if (doc.exists) {
           const oldRate = doc.data().rate;
-          let newRate;
+          const oldReviews = doc.data().reviews;
+          let newRate, newReviews;
           newRate = oldRate !== ""
             ? Math.ceil((+rateFromReview + +oldRate) / 2)
             : rateFromReview;
-          return newRate.toString();
+          newReviews = oldReviews + 1;
+          return {rate: newRate.toString(), reviews: newReviews} ;
         } else {
           console.log("No such document!");
         }
-      }).then((newRate) => {
+      }).then((obj) => {
       props.firestore.collection('products').doc(product.id).set({
         ...product,
-        rate: newRate
+        rate: obj.rate,
+        reviews: obj.reviews,
       }).then(() => {
         console.log("Rate is updated!");
         dispatch({

@@ -55,6 +55,7 @@ export const createProduct = (
                     ...product,
                     img: arrOfImg,
                     createdAt: new Date(),
+                    reviews: 0
                   }).then(() => {
                     dispatch({
                       type: CREATE_PRODUCT,

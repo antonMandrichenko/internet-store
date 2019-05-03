@@ -6,7 +6,10 @@ export const styles = theme => ({
     [theme.breakpoints.down('md')]: {
       width: '100%',
       padding: '0 .5rem',
-      paddingBottom: '.5rem'
+      paddingBottom: '.5rem',
     },
   },
+  rate: {
+    marginBottom: '1rem',
+  }
 });

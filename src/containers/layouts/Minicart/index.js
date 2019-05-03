@@ -12,6 +12,8 @@ import CardMedia from "@material-ui/core/CardMedia";
 import AddShoppingCart from "../../../components/icons/AddShoppingCart";
 import {styles} from "./style";
 import {mapDispatchToProps} from "./redux";
+import {Grid} from "@material-ui/core";
+import StarRates from "../../../components/StarsRate";
 
 Minicart.propTypes = {
   classes: PropTypes.object.isRequired,
@@ -48,19 +50,46 @@ function Minicart({
             {product.name}
           </Typography>
         </NavLink>
-        <Typography
-          variant="subtitle1"
-          component="p"
-          className={classes.price}>
-          ${product.price}
-        </Typography>
+        <Grid container spacing={8}>
+          <Grid item xs={5}>
+            <Typography
+              variant="subtitle1"
+              component="p"
+              className={classes.price}>
+              ${product.price}
+            </Typography>
+          </Grid>
+          {
+            product.reviews !== 0
+              ? <Grid item xs={7}>
+                  <StarRates rate={product.rate}/>
+                  <Typography
+                    variant="caption"
+                    component="p">
+                    {product.reviews} reviews
+                  </Typography>
+                </Grid>
+              : <Grid item xs={7}>
+                <Typography
+                  variant="body2"
+                  component="p">
+                  No reviews
+                </Typography>
+              </Grid>
+          }
+        </Grid>
+
       </CardContent>
       <CardActions>
-        <AddShoppingCart
-          handleToOrFromCart={handleToOrFromCart}
-          product={product}
-          isInCart={isInCart}
-        />
+        <div className={classes.button}>
+          <AddShoppingCart
+            handleToOrFromCart={handleToOrFromCart}
+            product={product}
+            isInCart={isInCart}
+
+          />
+        </div>
+
       </CardActions>
     </Card>
   );

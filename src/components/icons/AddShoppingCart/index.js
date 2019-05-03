@@ -13,7 +13,13 @@ AddShoppingCart.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-function AddShoppingCart({large, handleToOrFromCart, product, isInCart, classes}) {
+function AddShoppingCart({
+                           large,
+                           handleToOrFromCart,
+                           product,
+                           isInCart,
+                           classes
+                         }) {
 
   const [isClickAble, setIsClick] = useState(isInCart);
 
@@ -31,16 +37,16 @@ function AddShoppingCart({large, handleToOrFromCart, product, isInCart, classes}
         isClickAble
           ? <Button variant="outlined"
                     color="primary">
-              <AddShoppingCartIcon
-                color="primary"
-                fontSize={large}
-              />
-              Remove from cart
-            </Button>
+            <AddShoppingCartIcon
+              color="primary"
+              fontSize={large}
+            />
+            Remove from cart
+          </Button>
           : <Button variant="outlined">
-              <AddShoppingCartIcon fontSize={large}/>
-              Add to cart
-            </Button>
+            <AddShoppingCartIcon fontSize={large}/>
+            Add to cart
+          </Button>
       }
     </div>
   );

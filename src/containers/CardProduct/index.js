@@ -5,7 +5,7 @@ import {compose} from "redux";
 import {connect} from "react-redux";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
-import StarRates from "../../components/cardProduct/StarsRate";
+import StarRates from "../../components/StarsRate";
 import TabsProduct from "../../components/cardProduct/Tabs";
 import {styles} from "./style";
 import {mapStateToProps, mapDispatchToProps} from "./redux";
@@ -43,7 +43,9 @@ function CardProduct({
         <Typography variant="h4" gutterBottom>
           {product.name}
         </Typography>
-        <StarRates rate={product.rate}/>
+        <div className={classes.rate}>
+          <StarRates rate={product.rate}/>
+        </div>
         <TabsProduct
           product={product}
           handleToOrFromCart={handleToOrFromCart}

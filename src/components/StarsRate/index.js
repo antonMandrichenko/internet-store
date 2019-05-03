@@ -22,7 +22,7 @@ function StarRates({
   const rateStar = new Array(5).fill(0);
 
   return (
-    <div style={{color: 'orange', marginBottom: '1rem'}}>
+    <div style={{color: 'orange'}}>
       {rateStar.map((item, ind) =>
         ind <= rate && rate
           ? <StarIcon

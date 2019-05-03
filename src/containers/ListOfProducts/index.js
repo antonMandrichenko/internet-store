@@ -1,13 +1,15 @@
-import React, {Fragment, useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import PropTypes from "prop-types";
 import {withStyles} from '@material-ui/core/styles';
 import {connect} from 'react-redux';
 import {compose} from 'redux';
-import {firestoreConnect, withFirebase, withFirestore} from "react-redux-firebase";
+import {
+  firestoreConnect,
+  withFirebase,
+} from "react-redux-firebase";
 import Minicart from "../layouts/Minicart";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
-import Paper from "@material-ui/core/Paper";
 import Pagination from "../../components/layouts/Pagination";
 import CircularIndeterminate from '../../components/Circular'
 import {styles} from "./style";
@@ -33,14 +35,24 @@ function ListOfProducts({
   const [pages, setPages] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
   const [arrForRender, setArrForRender] = useState([]);
+  const [isCategory, setIsCategory] = useState(false);
   let currCount = (currentPage - 1) * count;
 
   useEffect(() => {
     if (products) {
       setPages(Math.ceil(products.length / count));
       setArrForRender(products.slice(currCount, currCount + count));
+      setIsCategory(false);
     }
   }, [products, currentPage]);
+
+  useEffect(() => {
+    if (currentCategory) {
+      setArrForRender(products.filter((product) =>
+        product.category === currentCategory));
+      setIsCategory(true);
+    }
+  }, [products, currentCategory]);
 
   const handleChangePage = (e) => {
     setCurrentPage(+e.target.innerHTML);
@@ -61,8 +73,7 @@ function ListOfProducts({
         </Typography>
       </Grid>
       {
-        products
-          ? !currentCategory
+        products || (isCategory && currentCategory)
             ? arrForRender.map((product) => {
               let isInCart = false;
               cart.forEach((productInCart) => {
@@ -76,41 +87,15 @@ function ListOfProducts({
                 md={4}
                 sm={6}
                 xs={12}>
-                <Minicart
-                  product={product}
-                  handleToOrFromCart={handleToOrFromCart}
-                  isInCart={isInCart}
-                />
+                <div className={classes.wrapper}>
+                  <Minicart
+                    product={product}
+                    handleToOrFromCart={handleToOrFromCart}
+                    isInCart={isInCart}
+                  />
+                </div>
               </Grid>
             })
-            : <Fragment>
-              {
-                products.filter((product) =>
-                product.category === currentCategory).length !== 0
-                ? products.filter((product) =>
-                  product.category === currentCategory).map((product) => {
-                  let isInCart = false;
-                  cart.forEach((productInCart) => {
-                    if (productInCart.id === product.id)
-                      isInCart = true;
-                  });
-                  return <Grid
-                    key={product.name}
-                    item
-                    lg={3}
-                    md={4}
-                    sm={6}
-                    xs={12}>
-                    <Minicart
-                      product={product}
-                      handleToOrFromCart={handleToOrFromCart}
-                      isInCart={isInCart}
-                    />
-                  </Grid>
-                })
-                : <Paper> Sorry, no products of this category</Paper>
-              }
-            </Fragment>
           : <CircularIndeterminate/>
       }
       <Grid item xs={12}>
@@ -136,7 +121,6 @@ function ListOfProducts({
 
 export default compose(
   withFirebase,
-  withFirestore,
   firestoreConnect([
     {collection: 'products'}
   ]),

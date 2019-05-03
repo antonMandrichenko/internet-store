@@ -9,7 +9,7 @@ import Button from "@material-ui/core/Button";
 import ReplayIcon from '@material-ui/icons/Replay';
 import ReviewForReview from "../ReviewForReview";
 import AddReviewForReview from "../../../containers/rewiews/AddReviewForReview";
-import StarRates from "../../cardProduct/StarsRate";
+import StarRates from "../../StarsRate";
 import {styles} from "./style";
 
 RewiewInCard.propTypes = {
