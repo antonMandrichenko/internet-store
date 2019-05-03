@@ -14,7 +14,16 @@ import {
   CATEGORY_PRODUCT_ERROR,
   GET_CURRENT_CATEGORY,
   NO_CURRENT_CATEGORY,
+  SORT_ARRAY_ALPHABETIC,
+  SORT_ARRAY_PRICE_LOW,
+  SORT_ARRAY_PRICE_HIGH,
+  NO_SORT_ARRAY,
 } from '../actions/types';
+import {
+  sortArrayByName,
+  sortArrayByPriceHigh,
+  sortArrayByPriceLow
+} from "../../utils/sortArray";
 
 const initState = {
   currentProduct: {},
@@ -22,6 +31,7 @@ const initState = {
   editProduct: {},
   currentCategory: null,
   productsError: null,
+  sortProducts:[],
 };
 
 export default (store = initState, action) => {
@@ -106,6 +116,29 @@ export default (store = initState, action) => {
         ...store,
         currentCategory: null,
         productsError: null,
+      };
+    case SORT_ARRAY_ALPHABETIC:
+      const newArr1 = [... action.array];
+      return {
+        ...store,
+        sortProducts: newArr1.sort(sortArrayByName)
+      };
+    case SORT_ARRAY_PRICE_LOW:
+      const newArr2 = [... action.array];
+      return {
+        ...store,
+        sortProducts: newArr2.sort(sortArrayByPriceLow)
+      };
+    case SORT_ARRAY_PRICE_HIGH:
+      const newArr3 = [... action.array];
+      return {
+        ...store,
+        sortProducts: newArr3.sort(sortArrayByPriceHigh)
+      };
+    case NO_SORT_ARRAY:
+      return {
+        ...store,
+        sortProducts: action.array
       };
     default:
       return store;

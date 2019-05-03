@@ -10,7 +10,7 @@ import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import {mapStateToProps, mapDispatchToProps} from "./redux";
-import {sortArray} from '../../../utils/sortArray';
+import {sortArrayByName} from '../../../utils/sortArray';
 import CircularIndeterminate from "../../../components/Circular";
 import Logo from "../../../components/Logo";
 import {styles} from './style';
@@ -41,7 +41,9 @@ function MobileMenuDrawer({
   };
 
   useEffect(() => {
-    setSortCategories(categories ? categories.sort(sortArray) : sortCategories)
+    setSortCategories(categories
+      ? categories.sort(sortArrayByName)
+      : sortCategories)
   }, [categories]);
 
   const sideList = (

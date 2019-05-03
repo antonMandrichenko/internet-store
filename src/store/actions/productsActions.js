@@ -14,6 +14,10 @@ import {
   CATEGORY_PRODUCT_ERROR,
   GET_CURRENT_CATEGORY,
   NO_CURRENT_CATEGORY,
+  SORT_ARRAY_ALPHABETIC,
+  SORT_ARRAY_PRICE_LOW,
+  SORT_ARRAY_PRICE_HIGH,
+  NO_SORT_ARRAY,
 } from './types';
 
 export const getCurrentProduct = product => ({
@@ -178,4 +182,24 @@ export const getCurrentCategory = category => ({
 
 export const noCurrentCategory = () => ({
   type: NO_CURRENT_CATEGORY
+});
+
+export const sortAlthabetic = array => ({
+  type: SORT_ARRAY_ALPHABETIC,
+  array
+});
+
+export const sortPriceLow = array => ({
+  type: SORT_ARRAY_PRICE_LOW,
+  array
+});
+
+export const sortPriceHigh = array => ({
+  type: SORT_ARRAY_PRICE_HIGH,
+  array
+});
+
+export const noSort = array => ({
+  type: NO_SORT_ARRAY,
+  array
 });

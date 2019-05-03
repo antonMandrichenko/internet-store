@@ -14,7 +14,7 @@ import CircularIndeterminate from "../../../components/Circular";
 import ListSubheader from "@material-ui/core/ListSubheader";
 import {styles} from "./style";
 import {mapStateToProps, mapDispatchToProps} from "./redux";
-import {sortArray} from '../../../utils/sortArray';
+import {sortArrayByName} from '../../../utils/sortArray';
 
 Aside.propTypes = {
   classes: PropTypes.object.isRequired,
@@ -39,13 +39,18 @@ function Aside({
 
   useEffect(() => {
     setSortCategories(categories
-      ? categories.sort(sortArray)
+      ? categories.sort(sortArrayByName)
       : sortCategories)
   }, [categories]);
 
   return (
     <List className={classes.root}>
-      <ListSubheader component="div" className={classes.subHeader} color="primary">Products</ListSubheader>
+      <ListSubheader
+        component="div"
+        className={classes.subHeader}
+        color="primary">
+        Products
+      </ListSubheader>
       {categories
         ? sortCategories.map((item) =>
             <ListItem button key={item.id} onClick={handleLink}>

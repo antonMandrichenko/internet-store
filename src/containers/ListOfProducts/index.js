@@ -14,6 +14,7 @@ import Pagination from "../../components/layouts/Pagination";
 import CircularIndeterminate from '../../components/Circular'
 import {styles} from "./style";
 import {mapStateToProps, mapDispatchToProps} from "./redux";
+import SortSelect from "../../components/SortSelect";
 
 
 ListOfProducts.propTypes = {
@@ -21,6 +22,11 @@ ListOfProducts.propTypes = {
   handleToOrFromCart: PropTypes.func.isRequired,
   cart: PropTypes.array.isRequired,
   currentCategory: PropTypes.any,
+  sortAlthabetic: PropTypes.func,
+  sortProducts: PropTypes.array,
+  sortPriceLow: PropTypes.func,
+  sortPriceHigh: PropTypes.func,
+  noSort: PropTypes.func,
 };
 
 function ListOfProducts({
@@ -28,7 +34,12 @@ function ListOfProducts({
                           cart,
                           handleToOrFromCart,
                           currentCategory,
-                          classes
+                          classes,
+                          sortAlthabetic,
+                          sortProducts,
+                          sortPriceLow,
+                          sortPriceHigh,
+                          noSort,
                         }) {
 
   const [count] = useState(8);
@@ -54,8 +65,26 @@ function ListOfProducts({
     }
   }, [products, currentCategory]);
 
+  useEffect(() => {
+    if (sortProducts) {
+      setArrForRender(sortProducts.slice(currCount, currCount + count));
+      setIsCategory(false);
+    }
+  }, [sortProducts, currentPage]);
+
   const handleChangePage = (e) => {
     setCurrentPage(+e.target.innerHTML);
+  };
+
+  const handleSortProducts = (name) => {
+    if(name === "Alphabetically")
+      sortAlthabetic(products);
+    if(name === "low")
+      sortPriceLow(products);
+    if(name === "high")
+      sortPriceHigh(products);
+    if(name === "none")
+      noSort(products);
   };
 
   return (
@@ -64,7 +93,10 @@ function ListOfProducts({
       spacing={16}>
       <Grid
         item
-        xs={12}>
+        xs={12}
+        md={!currentCategory
+          ? 9
+          : 12}>
         <Typography
           variant="h6">
           {!currentCategory
@@ -73,7 +105,21 @@ function ListOfProducts({
         </Typography>
       </Grid>
       {
-        products || (isCategory && currentCategory)
+        !currentCategory
+          ? <Grid
+              item
+              xs={12}
+              md={3}>
+              <SortSelect
+                sortProducts={handleSortProducts}
+              />
+            </Grid>
+          : null
+      }
+      {
+        products
+        && arrForRender.length !== 0
+        || (isCategory && currentCategory)
             ? arrForRender.map((product) => {
               let isInCart = false;
               cart.forEach((productInCart) => {
