@@ -118,19 +118,19 @@ export default (store = initState, action) => {
         productsError: null,
       };
     case SORT_ARRAY_ALPHABETIC:
-      const newArr1 = [... action.array];
+      const newArr1 = [...action.array];
       return {
         ...store,
         sortProducts: newArr1.sort(sortArrayByName)
       };
     case SORT_ARRAY_PRICE_LOW:
-      const newArr2 = [... action.array];
+      const newArr2 = [...action.array];
       return {
         ...store,
         sortProducts: newArr2.sort(sortArrayByPriceLow)
       };
     case SORT_ARRAY_PRICE_HIGH:
-      const newArr3 = [... action.array];
+      const newArr3 = [...action.array];
       return {
         ...store,
         sortProducts: newArr3.sort(sortArrayByPriceHigh)

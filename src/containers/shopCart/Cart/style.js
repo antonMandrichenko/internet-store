@@ -13,9 +13,10 @@ export const styles = theme => ({
     flexDirection: 'column',
     alignItems: 'center',
     [theme.breakpoints.down('md')]: {
-      width: '100%',
+      width: '95%',
       padding: '0 .5rem',
-      paddingBottom: '.5rem'
+      paddingBottom: '.5rem',
+      // margin: '.5rem 0',
     },
   }
 });

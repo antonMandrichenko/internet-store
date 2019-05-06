@@ -26,7 +26,9 @@ function SliderGoodsImg({classes, img}) {
         prevEl: '.swiper-button-prev',
       },
       centeredSlides: true,
-
+      touchEventsTarget: 'container',
+      touchRatio: 1,
+      simulateTouch: true,
       virtual: {
         slides: slides,
         renderExternal(data) {

@@ -12,11 +12,16 @@ export const styles = theme => ({
     justifyContent: 'flex-end',
     alignItems: 'center'
   },
+  log: {
+    [theme.breakpoints.down('sm')]: {
+      display: 'none',
+    }
+  },
   menuTitle: {
     display: 'flex',
     justifyContent: 'flex-start',
     alignItems: 'center',
-    [theme.breakpoints.down('md')]: {
+    [theme.breakpoints.down('sm')]: {
       display: 'none',
     }
   },

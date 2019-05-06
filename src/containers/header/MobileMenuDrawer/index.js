@@ -14,6 +14,8 @@ import {sortArrayByName} from '../../../utils/sortArray';
 import CircularIndeterminate from "../../../components/Circular";
 import Logo from "../../../components/Logo";
 import {styles} from './style';
+import Logout from "../../../components/header/Logout";
+import Login from "../../../components/header/Login";
 
 MobileMenuDrawer.propTypes = {
   handleOpenMenu: PropTypes.func.isRequired,
@@ -22,6 +24,9 @@ MobileMenuDrawer.propTypes = {
   history: PropTypes.object.isRequired,
   classes: PropTypes.object.isRequired,
   getCurrentCategory: PropTypes.func.isRequired,
+  user: PropTypes.object,
+  users: PropTypes.any,
+  auth: PropTypes.any,
 };
 
 function MobileMenuDrawer({
@@ -30,7 +35,11 @@ function MobileMenuDrawer({
                             categories,
                             history,
                             getCurrentCategory,
-                            classes
+                            classes,
+                            signOutSubmit,
+                            user,
+                            users,
+                            auth
                           }) {
 
   const [sortCategories, setSortCategories] = useState([]);
@@ -74,6 +83,18 @@ function MobileMenuDrawer({
         className={classes.root}
       >
         <Logo/>
+        {users && user && auth
+          ? auth.uid
+            ? <Logout
+              signOutSubmit={signOutSubmit}
+              user={user}
+            />
+            : <Login/>
+          : <CircularIndeterminate
+            size={'small'}
+            color={'white'}
+          />
+        }
         {sideList}
       </div>
     </Drawer>

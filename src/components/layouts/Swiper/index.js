@@ -21,7 +21,6 @@ function SwiperRow({classes}) {
   const [slides] = useState([
     img('https://firebasestorage.googleapis.com/v0/b/internet-store-62659.appspot.com/o/ecommerce-2140603_1920.jpg?alt=media&token=1b89c3ca-b1ac-44c0-aaf4-5d17381c0473'),
     img('https://firebasestorage.googleapis.com/v0/b/internet-store-62659.appspot.com/o/ecommerce-2140604_1920.jpg?alt=media&token=85df3dd3-b8e5-443c-8cf3-50464a22907d'),
-    img('https://firebasestorage.googleapis.com/v0/b/internet-store-62659.appspot.com/o/ecommerce-3563183_1920.jpg?alt=media&token=66ce60b4-8ec2-4d91-8bcd-8a299d642cbf'),
     img('https://firebasestorage.googleapis.com/v0/b/internet-store-62659.appspot.com/o/ecommerce-3640321_1920.jpg?alt=media&token=4e594bd2-e704-487b-8936-26c88cf58a43')]);
   const [virtualData, setVirtualData] = useState({slides: []});
 
@@ -33,12 +32,16 @@ function SwiperRow({classes}) {
         nextEl: '.swiper-button-next',
         prevEl: '.swiper-button-prev',
       },
-      spaceBetween: 30,
+      spaceBetween: 5,
       centeredSlides: true,
       autoplay: {
         delay: 5000,
         disableOnInteraction: false,
       },
+      touchEventsTarget: 'container',
+      touchRatio: 1,
+      simulateTouch: true,
+      resistance: false,
       pagination: {
         el: '.swiper-pagination',
         clickable: true,

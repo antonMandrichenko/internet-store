@@ -8,7 +8,7 @@ import Link from "@material-ui/core/Link";
 
 Logo.propTypes = {
   classes: PropTypes.object.isRequired,
-  handleChange: PropTypes.func.isRequired,
+  handleChange: PropTypes.func,
 };
 
 function Logo({

@@ -1,11 +1,8 @@
 export const styles = theme => ({
   swiper1: {
     width: '100%',
-    height: '500px',
+    height: 'auto',
     marginBottom: '2rem',
-    [theme.breakpoints.down('sm')]: {
-      width: '100%',
-    },
     [theme.breakpoints.down('xs')]: {
       display: 'none',
     }

@@ -1,16 +1,18 @@
-export const styles = {
+export const styles = theme => ({
   root: {
     height: '100%',
     position: 'relative',
     border: '1px solid grey',
     transition: 'height .3s, box-shadow .3s, top .5s,',
-    '&:hover': {
-      position: 'absolute',
-      top: '-5%',
-      height: '110%',
-      width: 'inherit',
-      zIndex: 200,
-      boxShadow: '0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22)',
+    [theme.breakpoints.up('md')]: {
+      '&:hover': {
+        position: 'absolute',
+        top: '-5%',
+        height: '110%',
+        width: 'inherit',
+        zIndex: 200,
+        boxShadow: '0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22)',
+      }
     }
   },
   media: {
@@ -29,4 +31,4 @@ export const styles = {
     right: 0,
     left: 0,
   }
-};
+});

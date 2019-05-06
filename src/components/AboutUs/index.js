@@ -77,7 +77,7 @@ function AboutUs({classes}) {
           </Typography>
           {
             delivery.map((item) =>
-              <ExpansionPanel>
+              <ExpansionPanel key={item.title}>
                 <ExpansionPanelSummary
                   expandIcon={<ExpandMoreIcon/>}>
                   <Typography
@@ -101,7 +101,7 @@ function AboutUs({classes}) {
           </Typography>
           {
             about.map((item) =>
-              <ExpansionPanel>
+              <ExpansionPanel key={item.title}>
                 <ExpansionPanelSummary expandIcon={<ExpandMoreIcon/>}>
                   <Typography
                     className={classes.heading}>

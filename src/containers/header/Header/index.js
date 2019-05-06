@@ -81,31 +81,36 @@ function Header({
           <MobileMenuDrawer
             isOpenMenu={isOpenMenu}
             handleOpenMenu={handleOpenMenu}
+            signOutSubmit={signOutSubmit}
+            user={currentUser}
           />
           <Grid container>
             <Grid
               item
               lg={1}
+              md={2}
               className={classes.menuTitle}>
               <Logo handleChange={handleChange}/>
             </Grid>
             <Grid
               item
               lg={8}
+              md={6}
               xs={8}
-              md={9}>
+              >
               <Menu/>
             </Grid>
             <Grid
               item
               lg={3}
+              md={4}
               xs={4}
-              md={3}
               className={classes.menuButton}>
               <CartIcon
                 handleLink={handleLink}
                 number={productsInCart.length}
               />
+              <div className={classes.log}>
               {users && currentUser
                 ? auth.uid
                   ? <Logout
@@ -118,6 +123,7 @@ function Header({
                   color={'white'}
                 />
               }
+              </div>
               {
                 auth.uid === 'jB5do8VhklX0qFsgDqy28p3eUOr1'
                   ? <DashboardButton handleLink={handleLink}/>

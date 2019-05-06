@@ -1,10 +1,7 @@
-export const styles = theme => ({
+export const styles = () => ({
   root: {
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
-    [theme.breakpoints.down('sm')]: {
-      display: 'none',
-    }
-  },
+   },
 });
