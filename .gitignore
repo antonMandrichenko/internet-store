@@ -21,3 +21,8 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+.idea/
+.idea/material-ui.iml
+.idea/workspace.xml
+.idea/jsLibraryMappings.xml

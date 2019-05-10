@@ -1,9 +1,18 @@
 import React from 'react';
 import Button from "@material-ui/core/Button";
+import PropTypes from "prop-types";
 
-function SignUp() {
+SignUp.propTypes = {
+  handleRouter: PropTypes.func.isRequired,
+};
+
+function SignUp({handleRouter}) {
   return (
-    <Button color="inherit">Sign Up</Button>
+    <Button
+      color="inherit"
+      onClick={handleRouter}>
+      Sign Up
+    </Button>
   );
 }
 

@@ -17,5 +17,5 @@ export const styles = theme => ({
   },
   imageMain: {
     width: '100%',
-  }
+  },
 });

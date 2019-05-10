@@ -15,6 +15,7 @@ import CircularIndeterminate from '../../components/Circular'
 import {styles} from "./style";
 import {mapStateToProps, mapDispatchToProps} from "./redux";
 import SortSelect from "../../components/SortSelect";
+import AviableButton from "../../components/priceChoise/AviableButton";
 
 
 ListOfProducts.propTypes = {
@@ -95,7 +96,7 @@ function ListOfProducts({
         item
         xs={12}
         md={!currentCategory
-          ? 9
+          ? 6
           : 12}>
         <Typography
           variant="h6">
@@ -103,6 +104,10 @@ function ListOfProducts({
             ? 'All products'
             : `Products of ${currentCategory}`}
         </Typography>
+
+      </Grid>
+      <Grid item md={3}>
+        <AviableButton/>
       </Grid>
       {
         !currentCategory
